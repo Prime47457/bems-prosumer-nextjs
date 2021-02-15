@@ -1,6 +1,6 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import Dashboard, { siteTitle } from "../components/dashboard";
+import Dashboard, { siteTitle } from "../components/main_menu";
 import { useRouter } from "next/router";
 import React, { useRef } from "react";
 
