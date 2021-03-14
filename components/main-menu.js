@@ -5,9 +5,13 @@ import Link from "next/link";
 
 export const siteTitle = "CU P2P Electricity Trading";
 
-export default function Dashboard({ children }: { children: React.ReactNode }) {
+export const Prime = () => {
+  return <div></div>;
+};
+
+export default function Dashboard({ children }) {
   return (
-    <div className={styles.container}>
+    <div className="App">
       <Head>
         <meta
           name="description"
