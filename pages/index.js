@@ -1,8 +1,9 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import Dashboard, { siteTitle } from "../components/main_menu";
+import MainMenu, { siteTitle } from "../components/main-menu";
 import { useRouter } from "next/router";
 import React, { useRef } from "react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -21,24 +22,18 @@ export default function Home() {
             Password: <input type="password" />
           </label>
           <div>
-            <button type="submit">Log in</button>
-            <button type="submit">Sign up</button>
+            <Link href="/prosumers/indv-prosumer">
+              <button type="submit">Log in</button>
+            </Link>
+            <Link href="/">
+              <button type="submit">Sign up</button>
+            </Link>
           </div>
         </div>
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
     </div>
 
-    // <Dashboard>
+    // <MainMenu>
     //   <Head>
     //     <title>{siteTitle}</title>
     //   </Head>
@@ -48,7 +43,7 @@ export default function Home() {
     //       however lets just use this for now.
     //     </p>
     //   </section>
-    // </Dashboard>
+    // </MainMenu>
   );
   // return (
   //   <div className={styles.container}>
