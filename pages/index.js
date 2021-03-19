@@ -4,40 +4,38 @@ import { siteTitle } from "../components/main-menu";
 import React, { useRef } from "react";
 import Link from "next/link";
 
+import Login from "./Login";
+
 export default function Home() {
   return (
-    // styles.container is in home.module.css
-    <div className={styles.container}>
-      <Head>
-        <title>{siteTitle}</title>
-      </Head>
-      <head>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-        />
-      </head>
-      <main>
-        <div className={styles.main}>
-          <h1 className={styles.title}>Login</h1>
-          <label className={styles.card}>
-            Username: <input type="text" />
-          </label>
-          <label className={styles.card}>
-            Password: <input type="password" />
-          </label>
-          <div>
-            <Link href="/prosumers/admin-prosumer">
-              <button type="submit">Log in</button>
-            </Link>
-            <Link href="/">
-              <button type="submit">Sign up</button>
-            </Link>
-          </div>
-        </div>
-      </main>
-    </div>
 
+    Login()
+    // styles.container is in home.module.css
+    // <div className={styles.container}>
+    //   <Head>
+    //     <title>{siteTitle}</title>
+    //   </Head>
+    //   <main>
+    //     <div className={styles.main}>
+    //       <h1 className={styles.title}>Login</h1>
+    //       <label className={styles.card}>
+    //         Username: <input type="text" />
+    //       </label>
+    //       <label className={styles.card}>
+    //         Password: <input type="password" />
+    //       </label>
+    //       <div>
+    //         <Link href="/prosumers/indv-prosumer">
+    //           <button type="submit">Log in</button>
+    //         </Link>
+    //         <Link href="/">
+    //           <button type="submit">Sign up</button>
+    //         </Link>
+    //       </div>
+    //     </div>
+    //   </main>
+    // </div>
+    
     // <MainMenu>
     //   <Head>
     //     <title>{siteTitle}</title>
