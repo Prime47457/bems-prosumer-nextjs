@@ -1,0 +1,61 @@
+/* h1 {
+    color: #404A70;
+} */
+
+.logo {
+    color: #404A70;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.logo-bems{
+    color: #E1BD50;
+}
+
+.login-button{
+    text-align: center;
+}
+
+.login-textfield{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-remember-pswd{
+    display: flex;
+}
+
+.login-button-fill{
+    color: #fff !important;
+    background-color: #243AA1 !important;
+    padding-right: 40px !important;
+    padding-left: 40px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.login-rememberme{
+    margin-right: auto !important;
+}
+
+.login-signup{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+@media screen and (max-width: 1000px) {
+    .login{
+        width: 60% !important;
+    }
+}
+  
+.login{
+    width: 30%;
+    margin: auto;
+    margin-top: 100px !important;
+}
+
+.login-textfield .MuiTextField-root {
+    width: 100%;
+}
