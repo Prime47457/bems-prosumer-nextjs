@@ -1,7 +1,6 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import MainMenu, { siteTitle } from "../components/main-menu";
-import { useRouter } from "next/router";
+import { siteTitle } from "../components/main-menu";
 import React, { useRef } from "react";
 import Link from "next/link";
 
