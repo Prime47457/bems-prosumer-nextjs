@@ -1,7 +1,6 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import MainMenu, { siteTitle } from "../components/main-menu";
-import { useRouter } from "next/router";
+import { siteTitle } from "../components/main-menu";
 import React, { useRef } from "react";
 import Link from "next/link";
 
@@ -12,6 +11,12 @@ export default function Home() {
       <Head>
         <title>{siteTitle}</title>
       </Head>
+      <head>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
+      </head>
       <main>
         <div className={styles.main}>
           <h1 className={styles.title}>Login</h1>
@@ -22,7 +27,7 @@ export default function Home() {
             Password: <input type="password" />
           </label>
           <div>
-            <Link href="/prosumers/indv-prosumer">
+            <Link href="/prosumers/admin-prosumer">
               <button type="submit">Log in</button>
             </Link>
             <Link href="/">
