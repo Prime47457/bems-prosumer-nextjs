@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Button from '@material-ui/core/Button';
-import Link from 'next/link';
-
-
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
+import Link from "next/link";
 
 // const useStyles = makeStyles((theme) => ({
 //   root: {
@@ -30,7 +28,11 @@ export default function Login() {
 
       <form className="" noValidate autoComplete="off">
         <div className="login-username-email login-textfield">
-          <TextField id="outlined-basic" label="Username/ Email" variant="outlined" />
+          <TextField
+            id="outlined-basic"
+            label="Username/ Email"
+            variant="outlined"
+          />
         </div>
 
         <div className="login-password login-textfield">
@@ -54,25 +56,25 @@ export default function Login() {
         </div>
 
         <div className="login-button">
-          <Link href='/'>
-            <Button className="login-button-fill" size="large" variant="contained">Login</Button>
+          <Link href="/">
+            <Button
+              className="login-button-fill"
+              size="large"
+              variant="contained"
+            >
+              Login
+            </Button>
           </Link>
         </div>
-
       </form>
 
       <div className="login-signup">
         <p>Don't have an account yet?</p>
 
-        <Link href='/SignUp'>
+        <Link href="/SignUp">
           <Button color="primary">Sign Up</Button>
         </Link>
       </div>
-
     </div>
   );
 }
-
-
-
-
