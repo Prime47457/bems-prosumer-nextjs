@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import "../styles/App.css";
 import "../styles/Login.css";
-import "../styles/SignUp.css";
+import "../styles/Signup.css";
 import "../styles/Grid.css";
 import "../styles/Navbar.css";
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
