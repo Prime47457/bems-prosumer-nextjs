@@ -1,15 +1,14 @@
-.signup-signup{
-    color: #404A70;
-    text-align: center;
+.signup-signup {
+  color: #404a70;
+  text-align: center;
 }
 
-.left-textfield{
-    margin-right: 40px !important;
+.left-textfield {
+  margin-right: 40px !important;
 }
 
-
-.signup-textfield{
-    display: flex;
+.signup-textfield {
+  display: flex;
 }
 
 /* .name-surname{
@@ -32,55 +31,56 @@
     display: flex;
 } */
 
-.signup-button-fill{
-    color: #fff !important;
-    background-color: #243AA1 !important;
-    padding-right: 40px !important;
-    padding-left: 40px !important;
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
+.signup-button-fill {
+  color: #fff !important;
+  background-color: #243aa1 !important;
+  padding-right: 40px !important;
+  padding-left: 40px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
 }
 
-.signup-login{
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+.signup-login {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.signup-button{
-    margin-top: 40px;
-    text-align: center;
+.signup-button {
+  margin-top: 40px;
+  text-align: center;
 }
 
 .signup-textfield .MuiTextField-root {
-    width: 100%;
-    margin-bottom: 20px;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
-.MuiFormControl-root{
-    width: 100%;
+.MuiFormControl-root {
+  width: 100%;
+  margin: 8px !important;
 }
 
 @media screen and (max-width: 1000px) {
-    .signup{
-        width: 80% !important;
-    }
+  .signup {
+    width: 80% !important;
+  }
 }
 
 @media screen and (max-width: 800px) {
-    .signup-textfield{
-        display: block;
-    }
+  .signup-textfield {
+    display: block;
+  }
 }
-  
-.signup{
-    width: 58%;
-    margin: auto;
-    margin-top: 100px !important;
-    padding-right: 60px !important;
-    padding-left: 60px !important;
-    padding-top: 30px !important;
-    padding-bottom: 30px !important;
-    background-color: #F7F7F7;
-    border-radius: 20px;
+
+.signup {
+  width: 58%;
+  margin: auto;
+  margin-top: 100px !important;
+  padding-right: 60px !important;
+  padding-left: 60px !important;
+  padding-top: 30px !important;
+  padding-bottom: 30px !important;
+  background-color: #f7f7f7;
+  border-radius: 20px;
 }

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/firestore";
 import queryString from "query-string";
 
 const firebaseConfig = {
@@ -13,7 +14,12 @@ const firebaseConfig = {
   measurementId: "G-JQXCS7B1JK",
 };
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+const db = firebase.firestore();
+// don't forget to add rule to the cloud firestore for user to sign up to the database
 
 const authContext = createContext();
 
@@ -39,12 +45,29 @@ function useProvideAuth() {
       });
   };
 
-  const signup = (email, password) => {
+  const signup = (
+    name,
+    surname,
+    email,
+    username,
+    pass,
+    building,
+    floor,
+    role
+  ) => {
     return firebase
       .auth()
-      .createUserWithEmailAndPassword(email, password)
+      .createUserWithEmailAndPassword(email, pass)
       .then((response) => {
         setUser(response.user);
+        db.collection("users").doc(response.user.uid).set({
+          name: name,
+          surname: surname,
+          username: username,
+          building: building,
+          floor: floor,
+          role: role,
+        });
         return response.user;
       });
   };
@@ -55,6 +78,7 @@ function useProvideAuth() {
       .signOut()
       .then(() => {
         setUser(false);
+        // console.log(user);
       });
   };
 

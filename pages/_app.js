@@ -6,11 +6,15 @@ import "../styles/Grid.css";
 import "../styles/Navbar.css";
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 
-import { AppProps } from "next/app";
+import { ProvideAuth } from "../assets/auth";
 import "fontsource-roboto";
 
 function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <ProvideAuth>
+      <Component {...pageProps} />
+    </ProvideAuth>
+  );
 }
 
 export default App;

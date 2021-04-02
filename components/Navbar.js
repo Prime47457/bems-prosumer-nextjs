@@ -10,8 +10,20 @@ import MenuRoundedIcon from "@material-ui/icons/MenuRounded";
 import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar";
 import HelpRoundedIcon from "@material-ui/icons/HelpRounded";
 import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
+import Link from "next/link";
+import { useAuth } from "../assets/auth";
+import { useRouter } from "next/router";
 
 export default function Navbar() {
+  const auth = useAuth();
+  const router = useRouter();
+
+  const signOut = () => {
+    auth.signout().then(() => {
+      router.push("/Login");
+    });
+  };
+
   return (
     <SideNav
       onSelect={(selected) => {
@@ -37,7 +49,10 @@ export default function Navbar() {
             <div className="icon-text">Menu</div>
           </NavText>
           <NavItem eventKey="charts/linechart">
-            <NavText>Market Information</NavText>
+            <NavText>
+              {/* Don't forget to look at what should be display and what should not be displayed */}
+              <Link href="/prosumers/admin-prosumer">Market Information</Link>
+            </NavText>
           </NavItem>
           <NavItem eventKey="charts/barchart">
             <NavText>P2P Diagram</NavText>
@@ -53,6 +68,7 @@ export default function Navbar() {
           </NavText>
         </NavItem>
 
+        {/* Don't forget to put button */}
         <NavItem eventKey="home">
           <NavIcon>
             <HelpRoundedIcon />
@@ -62,7 +78,7 @@ export default function Navbar() {
           </NavText>
         </NavItem>
 
-        <NavItem eventKey="home">
+        <NavItem eventKey="home" onClick={signOut}>
           <NavIcon>
             <ExitToAppRoundedIcon />
           </NavIcon>
