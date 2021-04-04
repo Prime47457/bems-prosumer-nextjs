@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import Link from "next/link";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
+import Snackbar from "@material-ui/core/Snackbar";
+import { AlertTitle, Alert } from "@material-ui/lab";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { useAuth } from "../assets/auth";
@@ -36,13 +36,16 @@ const SignupSchema = Yup.object().shape({
 });
 
 export default function LoginProsumer() {
-  const [open, setOpen] = React.useState(true);
-  const handleClick = () => {
-    setOpen(!open);
-  };
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [openError, setOpenError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState({});
 
   const auth = useAuth();
   const router = useRouter();
+
+  const handleErrorClose = () => {
+    setOpenError(false);
+  };
 
   const signUp = ({
     name,
@@ -57,7 +60,12 @@ export default function LoginProsumer() {
     auth
       .signup(name, surname, email, username, pass, building, floor, role)
       .then(() => {
+        setOpenSuccess(true);
         router.push("/Login");
+      })
+      .catch((error) => {
+        setErrorMessage(error);
+        setOpenError(true);
       });
   };
 
@@ -188,7 +196,6 @@ export default function LoginProsumer() {
               value={formik.values.building}
               label="Building"
               error={formik.touched.building && Boolean(formik.errors.building)}
-              helperText={formik.touched.building && formik.errors.building}
             >
               <MenuItem value="Cham5">Cham5</MenuItem>
             </Select>
@@ -214,7 +221,6 @@ export default function LoginProsumer() {
               value={formik.values.floor}
               label="Floor"
               error={formik.touched.floor && Boolean(formik.errors.floor)}
-              helperText={formik.touched.floor && formik.errors.floor}
             >
               <MenuItem value={1}>1</MenuItem>
               <MenuItem value={2}>2</MenuItem>
@@ -235,10 +241,8 @@ export default function LoginProsumer() {
               value={formik.values.role}
               label="Role"
               error={formik.touched.role && Boolean(formik.errors.role)}
-              helperText={formik.touched.role && formik.errors.role}
             >
-              <MenuItem value="producer">Producer</MenuItem>
-              <MenuItem value="consumer">Consumer</MenuItem>
+              <MenuItem value="prosumer">Prosumer</MenuItem>
               <MenuItem value="admin">Admin</MenuItem>
             </Select>
           </FormControl>
@@ -261,6 +265,22 @@ export default function LoginProsumer() {
           </Link>
         </div>
       </form>
+      <Snackbar open={openSuccess} autoHideDuration={6000}>
+        <Alert severity="success">
+          <AlertTitle>Success!</AlertTitle>
+          Your account has been — <strong>created</strong>.
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={openError}
+        autoHideDuration={6000}
+        onClose={handleErrorClose}
+      >
+        <Alert severity="error" onClose={handleErrorClose}>
+          <AlertTitle>An error occurred</AlertTitle>
+          {errorMessage.message}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import InputBase from "@material-ui/core/InputBase";
@@ -10,7 +9,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import DirectionsIcon from "@material-ui/icons/Directions";
 
 export default function GridInfo() {
-  // const classes = useStyles();
   const [items, setItems] = useState([
     1,
     2,

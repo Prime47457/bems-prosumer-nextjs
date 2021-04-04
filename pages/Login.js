@@ -3,23 +3,43 @@ import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
+import { Alert, AlertTitle } from "@material-ui/lab";
 import Link from "next/link";
 import { useAuth } from "../assets/auth";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
 
 export default function Login() {
-  // const classes = useStyles();
   const auth = useAuth();
   const router = useRouter();
 
-  const signIn = ({ email, pass }) => {
-    auth.signin(email, pass).then(() => {
-      router.push("/Grid");
-    });
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [openError, setOpenError] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+  const [errorMessage, setErrorMessage] = useState({});
+
+  const handleChange = (event) => {
+    setIsChecked(event.target.checked);
   };
 
-  const [isChecked, setIsChecked] = useState(false);
+  const handleErrorClose = () => {
+    setOpenError(false);
+  };
+
+  const signIn = ({ email, pass }) => {
+    auth
+      .signin(email, pass)
+      .then(() => {
+        setOpenSuccess(true);
+        router.push("/Grid");
+      })
+      .catch((error) => {
+        setErrorMessage(error);
+        setOpenError(true);
+      });
+  };
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -27,7 +47,6 @@ export default function Login() {
     },
     onSubmit: (values) => {
       signIn(values);
-      // console.log(values);
     },
   });
 
@@ -73,7 +92,7 @@ export default function Login() {
             control={
               <Checkbox
                 checked={isChecked}
-                // onChange={handleChange}
+                onChange={handleChange}
                 name="checkedB"
                 color="primary"
               />
@@ -102,6 +121,21 @@ export default function Login() {
           <Button color="primary">Sign Up</Button>
         </Link>
       </div>
+      <Snackbar open={openSuccess} autoHideDuration={6000}>
+        <Alert severity="success">
+          <strong>Logged in</strong>
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={openError}
+        autoHideDuration={6000}
+        onClose={handleErrorClose}
+      >
+        <Alert severity="error" onClose={handleErrorClose}>
+          <AlertTitle>An error occurred</AlertTitle>
+          {errorMessage.message}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
