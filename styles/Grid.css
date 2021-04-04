@@ -1,0 +1,72 @@
+.information {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.textfield-search {
+  background-color: #bcc9f5;
+  width: 58%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  border-radius: 8px;
+}
+
+.textfield-search .MuiInputBase-root {
+  margin-left: 15px;
+  width: 250px;
+}
+
+.MuiPaper-root {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.id {
+  margin-bottom: 10px;
+}
+
+.kw {
+  font-weight: 700;
+}
+
+.name-surname {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-right: 40px;
+}
+
+.MuiSvgIcon-root {
+  margin-left: auto;
+  margin-right: 8px;
+}
+
+.grid-page {
+  margin-left: 80px;
+}
+
+.grid-info {
+  display: flex;
+}
+
+.MuiGrid-root {
+  justify-content: center;
+}
+
+.grid-container {
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 50px;
+}
+
+@media screen and (max-width: 800px) {
+  .grid-info {
+    flex-wrap: wrap;
+  }
+}
