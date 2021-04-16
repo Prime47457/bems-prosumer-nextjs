@@ -64,7 +64,7 @@ export default function Navbar() {
             <NavItem eventKey="menu/marketInfo">
               <NavText>
                 {/* Don't forget to look at what should be display and what should not be displayed */}
-                <Link href="/prosumers/Admin-prosumer">Market Information</Link>
+                <Link href="/prosumers/Admin">Market Information</Link>
               </NavText>
             </NavItem>
             <NavItem eventKey="menu/prosumerInfo">
