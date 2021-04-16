@@ -20,6 +20,25 @@
   padding-bottom: 10px !important;
 }
 
+.pswd-cfpswd{
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.bld-floor-acc{
+    margin-bottom: 20px;
+    display: flex;
+} */
+
+.signup-button-fill {
+  color: #fff !important;
+  background-color: #243aa1 !important;
+  padding-right: 40px !important;
+  padding-left: 40px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
 .signup-login {
   display: flex;
   justify-content: center;
