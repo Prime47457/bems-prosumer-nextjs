@@ -17,10 +17,6 @@ const SignupSchema = Yup.object().shape({
   name: Yup.string().max(50, "Too Long!").required("Required"),
   surname: Yup.string().max(50, "Too Long!").required("Required"),
   email: Yup.string().email("Invalid email").required("Required"),
-  username: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
   pass: Yup.string()
     .required("Please Enter your password")
     .matches(
@@ -32,7 +28,7 @@ const SignupSchema = Yup.object().shape({
     .oneOf([Yup.ref("pass")], "Password does not match"),
   building: Yup.string().required("Required"),
   floor: Yup.string().required("Required"),
-  role: Yup.string().required("Required"),
+  link: Yup.string().required("Required"),
 });
 
 export default function LoginProsumer() {
@@ -47,21 +43,14 @@ export default function LoginProsumer() {
     setOpenError(false);
   };
 
-  const signUp = ({
-    name,
-    surname,
-    email,
-    username,
-    pass,
-    building,
-    floor,
-    role,
-  }) => {
+  const signUp = ({ name, surname, email, pass, building, floor, link }) => {
     auth
-      .signup(name, surname, email, username, pass, building, floor, role)
+      .signup(name, surname, email, pass, building, floor, link)
       .then(() => {
         setOpenSuccess(true);
-        router.push("/Login");
+        setTimeout(() => {
+          router.push("/Login");
+        }, 1000);
       })
       .catch((error) => {
         setErrorMessage(error);
@@ -74,12 +63,11 @@ export default function LoginProsumer() {
       name: "",
       surname: "",
       email: "",
-      username: "",
       pass: "",
       confirmpassword: "",
       building: "",
       floor: "",
-      role: "",
+      link: "",
     },
     validationSchema: SignupSchema,
     onSubmit: (values) => {
@@ -94,11 +82,11 @@ export default function LoginProsumer() {
           <h1>Sign Up</h1>
         </div>
 
-        <div className="name-surname signup-textfield">
+        <div className="signup-textfield">
           <TextField
             id="name"
             name="name"
-            className="name left-textfield"
+            className="left-textfield"
             label="First Name"
             variant="outlined"
             onChange={formik.handleChange}
@@ -109,7 +97,6 @@ export default function LoginProsumer() {
           <TextField
             id="surname"
             name="surname"
-            className="surname"
             label="Last Name"
             variant="outlined"
             onChange={formik.handleChange}
@@ -130,16 +117,6 @@ export default function LoginProsumer() {
             value={formik.values.email}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
-          />
-          <TextField
-            id="username"
-            name="username"
-            label="Username"
-            variant="outlined"
-            onChange={formik.handleChange}
-            value={formik.values.username}
-            error={formik.touched.username && Boolean(formik.errors.username)}
-            helperText={formik.touched.username && formik.errors.username}
           />
         </div>
 
@@ -175,15 +152,6 @@ export default function LoginProsumer() {
         </div>
 
         <div className="bld-floor-acc signup-textfield">
-          {/* <TextField
-            id="building"
-            name="building"
-            className="left-textfield"
-            label="Building"
-            variant="outlined"
-            onChange={formik.handleChange}
-            value={formik.values.building}
-          /> */}
           <FormControl variant="outlined">
             <InputLabel id="demo-simple-select-outlined-label">
               Building
@@ -200,15 +168,6 @@ export default function LoginProsumer() {
               <MenuItem value="Cham5">Cham5</MenuItem>
             </Select>
           </FormControl>
-          {/* <TextField
-            id="floor"
-            name="floor"
-            className="left-textfield"
-            label="Floor"
-            variant="outlined"
-            onChange={formik.handleChange}
-            value={formik.values.floor}
-          /> */}
           <FormControl variant="outlined">
             <InputLabel id="demo-simple-select-outlined-label">
               Floor
@@ -231,21 +190,19 @@ export default function LoginProsumer() {
               <MenuItem value={7}>7</MenuItem>
             </Select>
           </FormControl>
-          <FormControl variant="outlined">
-            <InputLabel id="demo-simple-select-outlined-label">Role</InputLabel>
-            <Select
-              id="role"
-              name="role"
-              labelId="demo-simple-select-outlined-label"
-              onChange={formik.handleChange}
-              value={formik.values.role}
-              label="Role"
-              error={formik.touched.role && Boolean(formik.errors.role)}
-            >
-              <MenuItem value="prosumer">Prosumer</MenuItem>
-              <MenuItem value="admin">Admin</MenuItem>
-            </Select>
-          </FormControl>
+        </div>
+        <div className="signup-textfield">
+          <TextField
+            id="link"
+            name="link"
+            className="left-textfield"
+            label="Floor API Link"
+            variant="outlined"
+            onChange={formik.handleChange}
+            value={formik.values.link}
+            error={formik.touched.link && Boolean(formik.errors.link)}
+            helperText={formik.touched.link && formik.errors.link}
+          />
         </div>
 
         <div className="signup-button">
@@ -259,9 +216,9 @@ export default function LoginProsumer() {
         </div>
 
         <div className="signup-login">
-          <p>Already have an account?</p>
+          <span>Already have an account?</span>
           <Link href="/Login">
-            <Button color="primary">Login</Button>
+            <a style={{ color: "#243aa1" }}>Login</a>
           </Link>
         </div>
       </form>

@@ -5,31 +5,29 @@ import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import Navbar from "../../components/Navbar";
 import dynamic from "next/dynamic";
-import historicalData from "../../assets/historicalData";
+import { historicalAdminData } from "../../assets/historicalData";
 
-const Electricity = dynamic(
+const AggElectricity = dynamic(
   () => {
-    return import("../../components/charts/Electricity");
+    return import("../../components/charts/AggElectricity");
   },
   { ssr: false }
 );
 
-export default function Consumer() {
+export default function AdminProsumer() {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    historicalData(
+    historicalAdminData(
       "Electricity",
       "Load",
-      date.toISOString().substring(0, 10),
-      "Floor 1"
+      date.toISOString().substring(0, 10)
     );
   };
-
   return (
     <div className="grid-page">
-      <Head>Prosumer Information</Head>
+      <Head>Total Prosumer Information</Head>
       <Navbar />
       <div className="chart-container">
         <Paper>
@@ -45,7 +43,7 @@ export default function Consumer() {
               autoOk={true}
             />
           </MuiPickersUtilsProvider>
-          <Electricity />
+          <AggElectricity />
         </Paper>
       </div>
     </div>
