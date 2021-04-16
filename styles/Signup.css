@@ -11,26 +11,6 @@
   display: flex;
 }
 
-/* .name-surname{
-    margin-bottom: 20px;
-    display: flex;
-} */
-
-/* .email-username{
-    margin-bottom: 20px;
-    display: flex;
-}
-
-.pswd-cfpswd{
-    margin-bottom: 20px;
-    display: flex;
-}
-
-.bld-floor-acc{
-    margin-bottom: 20px;
-    display: flex;
-} */
-
 .signup-button-fill {
   color: #fff !important;
   background-color: #243aa1 !important;

@@ -45,16 +45,7 @@ function useProvideAuth() {
       });
   };
 
-  const signup = (
-    name,
-    surname,
-    email,
-    username,
-    pass,
-    building,
-    floor,
-    role
-  ) => {
+  const signup = (name, surname, email, pass, building, floor, link) => {
     return firebase
       .auth()
       .createUserWithEmailAndPassword(email, pass)
@@ -63,10 +54,9 @@ function useProvideAuth() {
         db.collection("users").doc(response.user.uid).set({
           name: name,
           surname: surname,
-          username: username,
           building: building,
           floor: floor,
-          role: role,
+          link: link,
         });
         return response.user;
       });

@@ -32,7 +32,9 @@ export default function Login() {
       .signin(email, pass)
       .then(() => {
         setOpenSuccess(true);
-        router.push("/Grid");
+        setTimeout(() => {
+          router.push("/Grid");
+        }, 1000);
       })
       .catch((error) => {
         setErrorMessage(error);
@@ -87,7 +89,7 @@ export default function Login() {
         </div>
 
         <div className="login-remember-pswd">
-          <FormControlLabel
+          {/* <FormControlLabel
             className="login-rememberme"
             control={
               <Checkbox
@@ -98,8 +100,8 @@ export default function Login() {
               />
             }
             label="Remember me"
-          />
-          <p>Forgot password?</p>
+          /> */}
+          <a style={{ color: "#243aa1" }}>Forgot password?</a>
         </div>
 
         <div className="login-button">
@@ -115,10 +117,9 @@ export default function Login() {
       </form>
 
       <div className="login-signup">
-        <p>Don't have an account yet?</p>
-
+        <span>Don't have an account yet? </span>
         <Link href="/SignUp">
-          <Button color="primary">Sign Up</Button>
+          <a style={{ color: "#243aa1" }}>Sign Up</a>
         </Link>
       </div>
       <Snackbar open={openSuccess} autoHideDuration={6000}>
