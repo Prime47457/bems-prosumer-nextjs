@@ -8,7 +8,6 @@ import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import Snackbar from "@material-ui/core/Snackbar";
 import { AlertTitle, Alert } from "@material-ui/lab";
-import Link from "next/link";
 import { useAuth } from "../assets/auth";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -36,7 +35,12 @@ export default function Navbar() {
     >
       <SideNav
         onSelect={(selected) => {
-          // Add your code here
+          if (selected == "logout") {
+            signOut();
+          } else {
+            const route = "/" + selected;
+            router.push(route);
+          }
         }}
         expanded={navbar.expanded}
         onToggle={(expand) => {
@@ -44,8 +48,8 @@ export default function Navbar() {
         }}
       >
         <SideNav.Toggle />
-        <SideNav.Nav defaultSelected="home">
-          <NavItem eventKey="home" className="nav-item">
+        <SideNav.Nav defaultSelected="Grid">
+          <NavItem eventKey="Grid" className="nav-item">
             <NavIcon className="nav-icon">
               <HomeRoundedIcon />
             </NavIcon>
@@ -54,26 +58,26 @@ export default function Navbar() {
             </NavText>
           </NavItem>
 
-          <NavItem eventKey="menu">
+          <NavItem eventKey="prosumers">
             <NavIcon>
               <MenuRoundedIcon />
             </NavIcon>
             <NavText>
               <div className="icon-text">Menu</div>
             </NavText>
-            <NavItem eventKey="menu/marketInfo">
+            <NavItem eventKey="prosumers/Admin">
               <NavText>
                 {/* Don't forget to look at what should be display and what should not be displayed */}
-                <Link href="/prosumers/Admin">Market Information</Link>
+                Market Information
               </NavText>
             </NavItem>
-            <NavItem eventKey="menu/prosumerInfo">
+            <NavItem eventKey="prosumers/Prosumer">
               <NavText>
                 {/* Don't forget to look at what should be display and what should not be displayed */}
-                <Link href="/prosumers/Prosumer">Prosumer Information</Link>
+                Prosumer Information
               </NavText>
             </NavItem>
-            <NavItem eventKey="menu/p2p">
+            <NavItem eventKey="prosumers/p2p">
               <NavText>P2P Diagram</NavText>
             </NavItem>
           </NavItem>
@@ -110,7 +114,7 @@ export default function Navbar() {
             </NavText>
           </NavItem>
 
-          <NavItem eventKey="logout" onClick={signOut}>
+          <NavItem eventKey="logout">
             <NavIcon>
               <ExitToAppRoundedIcon />
             </NavIcon>

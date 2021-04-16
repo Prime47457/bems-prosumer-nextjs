@@ -1,4 +1,3 @@
-import React from "react";
 import axios from "axios";
 import groupBy from "lodash/groupBy";
 import map from "lodash/map";

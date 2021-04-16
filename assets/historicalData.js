@@ -1,4 +1,3 @@
-import React from "react";
 import groupBy from "lodash/groupBy";
 import map from "lodash/map";
 import firebase from "firebase/app";
@@ -74,8 +73,6 @@ export function historicalAdminData(electricity, type, selectedDate) {
             return { x: element.x, y: element.y };
           });
         });
-
-        console.log(data);
 
         const transformedData = map(
           groupBy(data.flat(), (element) => new Date(element.x).getHours()),
