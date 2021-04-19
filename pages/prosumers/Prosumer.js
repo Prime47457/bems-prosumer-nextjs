@@ -45,16 +45,18 @@ export default function Prosumer() {
   const [selectedPriceDate, setSelectedPriceDate] = useState(new Date());
 
   const user = firebase.auth().currentUser;
-  firebase
-    .firestore()
-    .collection("users")
-    .doc(user.uid)
-    .get()
-    .then((doc) => {
-      const url = doc.data().link;
-      updateChart(url);
-      console.log("damn");
-    });
+  if (user === null) {
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(user.uid)
+      .get()
+      .then((doc) => {
+        const url = doc.data().link;
+        updateChart(url);
+        console.log("damn");
+      });
+  }
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
