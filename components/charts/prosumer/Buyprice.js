@@ -1,22 +1,11 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
-import { updateAdminChart } from "../../assets/updateChart";
 
-const AggElectricity = () => {
-  const urlArray = [
-    "https://www.bems.chula.ac.th/web/cham5-api/api/v1/building/3/building_usage/day/peak",
-    "https://www.bems.chula.ac.th/web/cham5-api/api/v1/building/4/building_usage/day/peak",
-    "https://www.bems.chula.ac.th/web/cham5-api/api/v1/building/5/building_usage/day/peak",
-    "https://www.bems.chula.ac.th/web/cham5-api/api/v1/building/8/building_usage/day/peak",
-    "https://www.bems.chula.ac.th/web/cham5-api/api/v1/building/9/building_usage/day/peak",
-  ];
-
-  updateAdminChart(urlArray);
-
+const Buyprice = () => {
   const [chart, setChart] = useState({
     series: [
       {
-        name: "Load",
+        name: "Avg price bought",
         data: [],
       },
     ],
@@ -32,7 +21,7 @@ const AggElectricity = () => {
     ],
     options: {
       chart: {
-        id: "aggload",
+        id: "buyprice",
         height: 400,
         width: "100%",
         type: "column",
@@ -61,7 +50,7 @@ const AggElectricity = () => {
         },
       },
       title: {
-        text: "Aggregated Electricity Load",
+        text: "Transfer Market Buying Price",
       },
       dataLabels: {
         enabled: true,
@@ -84,7 +73,7 @@ const AggElectricity = () => {
       yaxis: [
         {
           title: {
-            text: "Power(kW)",
+            text: "Price(Baht)",
           },
         },
       ],
@@ -105,4 +94,4 @@ const AggElectricity = () => {
   );
 };
 
-export default AggElectricity;
+export default Buyprice;

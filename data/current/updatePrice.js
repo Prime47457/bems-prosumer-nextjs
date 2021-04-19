@@ -18,12 +18,63 @@ if (!firebase.apps.length) {
 
 const db = firebase.database();
 
-export default function historicalAdminPriceData(date) {
-  let status = "";
+export default function updatePrice() {
+  const user = firebase.auth().currentUser;
+  const date = new Date()
+    .toLocaleString("en-CA", { timeZone: "Asia/Bangkok" })
+    .substring(0, 10);
+  db.ref("Prosumer")
+    .child(user.uid)
+    .child(date)
+    .on("value", (snapshot) => {
+      if (snapshot.exists()) {
+        const buyData = Object.entries(snapshot.val()).map(
+          ([key, response]) => {
+            const buyPrice = response.bought.reduce(
+              (acc, cur) => {
+                acc.sum += cur.price * cur.quantity;
+                acc.quantity += cur.quantity;
+                return acc;
+              },
+              { sum: 0, quantity: 0 }
+            );
+            const avgBuyPrice = Number(
+              Math.round(buyPrice.sum / buyPrice.quantity + "e2") + "e-2"
+            );
+            return { x: parseInt(key), y: avgBuyPrice };
+          }
+        );
+        const sellData = Object.entries(snapshot.val()).map(
+          ([key, response]) => {
+            const sellPrice = response.sold.reduce(
+              (acc, cur) => {
+                acc.sum += cur.price * cur.quantity;
+                acc.quantity += cur.quantity;
+                return acc;
+              },
+              { sum: 0, quantity: 0 }
+            );
+            const avgSellPrice = Number(
+              Math.round(sellPrice.sum / sellPrice.quantity + "e2") + "e-2"
+            );
+            return { x: parseInt(key), y: avgSellPrice };
+          }
+        );
+        ApexCharts.exec("buyprice", "updateSeries", [{ data: buyData }]);
+        ApexCharts.exec("sellprice", "updateSeries", [{ data: sellData }]);
+      } else {
+        console.log("No data found");
+      }
+    });
+}
+
+export function updateAggPrice() {
+  const date = new Date()
+    .toLocaleString("en-CA", { timeZone: "Asia/Bangkok" })
+    .substring(0, 10);
   db.ref("Market/admin")
     .child(date)
-    .get()
-    .then((snapshot) => {
+    .on("value", (snapshot) => {
       if (snapshot.exists()) {
         const data = Object.entries(snapshot.val()).map(([key, response]) => {
           let marketPrice = 0;
@@ -57,14 +108,9 @@ export default function historicalAdminPriceData(date) {
         });
 
         ApexCharts.exec("aggprice", "updateSeries", [{ data: data }]);
-        status = "ok";
+        console.log(data);
       } else {
         console.log("No data found");
-        status = "No data found";
       }
-    })
-    .catch((err) => {
-      console.log(err);
     });
-  return status;
 }

@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
-import updatePrice from "../../assets/updatePrice";
 
-const Market = () => {
-  updatePrice();
-
+const Sellprice = () => {
   const [chart, setChart] = useState({
     series: [
       {
-        name: "Price",
+        name: "Average price sold",
         data: [],
       },
     ],
@@ -24,7 +21,7 @@ const Market = () => {
     ],
     options: {
       chart: {
-        id: "buyprice",
+        id: "sellprice",
         height: 400,
         width: "100%",
         type: "column",
@@ -53,7 +50,7 @@ const Market = () => {
         },
       },
       title: {
-        text: "Transfer Market Price",
+        text: "Transfer Market Selling Price",
       },
       dataLabels: {
         enabled: true,
@@ -97,4 +94,4 @@ const Market = () => {
   );
 };
 
-export default Market;
+export default Sellprice;

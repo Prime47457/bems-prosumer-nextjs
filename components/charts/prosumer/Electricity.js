@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
-import { updateAggPrice } from "../../assets/updatePrice";
 
-const AggMarket = () => {
-  updateAggPrice();
-
+const Electricity = () => {
   const [chart, setChart] = useState({
     series: [
       {
-        name: "Price",
+        name: "Load",
         data: [],
       },
     ],
@@ -24,8 +21,8 @@ const AggMarket = () => {
     ],
     options: {
       chart: {
-        id: "aggprice",
-        height: 400,
+        id: "load",
+        height: 200,
         width: "100%",
         type: "column",
         toolbar: {
@@ -53,7 +50,7 @@ const AggMarket = () => {
         },
       },
       title: {
-        text: "Aggregated Transfer Market Price",
+        text: "Electricity Load",
       },
       dataLabels: {
         enabled: true,
@@ -76,7 +73,7 @@ const AggMarket = () => {
       yaxis: [
         {
           title: {
-            text: "Price(Baht)",
+            text: "Power(kW)",
           },
         },
       ],
@@ -89,7 +86,7 @@ const AggMarket = () => {
         options={chart.options}
         series={chart.series}
         type="bar"
-        height={400}
+        height={300}
         width="100%"
         responsive={chart.responsive}
       />
@@ -97,4 +94,4 @@ const AggMarket = () => {
   );
 };
 
-export default AggMarket;
+export default Electricity;

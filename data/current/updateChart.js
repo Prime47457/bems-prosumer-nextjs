@@ -32,34 +32,27 @@ export default function updateChart(url) {
 }
 
 export async function updateAdminChart(urlArray) {
-  const getData = async () => {
-    const data = await Promise.all(
-      urlArray.map(async (url) => {
-        const res = await axios.get(url);
-        return res.data.graph.map((element) => {
-          return { x: element.x, y: element.y };
-        });
-      })
-    );
-    const transformedData = map(
-      groupBy(data.flat(), (value) => new Date(value.x).getHours()),
-      (items, xaxis) => {
-        const dateTime = new Date();
-        return {
-          x: dateTime.setHours(xaxis, 0, 0, 0),
-          y: items.reduce(
-            (acc, value) => Number(Math.round(acc + value.y + "e2") + "e-2"),
-            0
-          ),
-        };
-      }
-    );
+  const data = await Promise.all(
+    urlArray.map(async (url) => {
+      const res = await axios.get(url);
+      return res.data.graph.map((element) => {
+        return { x: element.x, y: element.y };
+      });
+    })
+  );
+  const transformedData = map(
+    groupBy(data.flat(), (value) => new Date(value.x).getHours()),
+    (items, xaxis) => {
+      const dateTime = new Date();
+      return {
+        x: dateTime.setHours(xaxis, 0, 0, 0),
+        y: items.reduce(
+          (acc, value) => Number(Math.round(acc + value.y + "e2") + "e-2"),
+          0
+        ),
+      };
+    }
+  );
 
-    ApexCharts.exec("aggload", "updateSeries", [{ data: transformedData }]);
-  };
-
-  getData();
-  setInterval(() => {
-    getData();
-  }, 100000);
+  ApexCharts.exec("aggload", "updateSeries", [{ data: transformedData }]);
 }

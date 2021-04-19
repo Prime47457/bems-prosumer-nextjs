@@ -18,45 +18,52 @@ if (!firebase.apps.length) {
 
 const db = firebase.database();
 
-export default function updatePrice() {
-  const user = firebase.auth().currentUser;
-  const date = new Date()
-    .toLocaleString("en-CA", { timeZone: "Asia/Bangkok" })
-    .substring(0, 10);
+export default function historicalPrice(date, userId, transType) {
   db.ref("Prosumer")
-    .child(user.uid)
+    .child(userId)
     .child(date)
-    .on("value", (snapshot) => {
+    .get()
+    .then((snapshot) => {
       if (snapshot.exists()) {
         const data = Object.entries(snapshot.val()).map(([key, response]) => {
-          const buyPrice = response.bought.reduce(
-            (acc, cur) => {
-              acc.sum += cur.price * cur.quantity;
-              acc.quantity += cur.quantity;
-              return acc;
-            },
-            { sum: 0, quantity: 0 }
+          const price =
+            transType === "bought"
+              ? response.bought.reduce(
+                  (acc, cur) => {
+                    acc.sum += cur.price * cur.quantity;
+                    acc.quantity += cur.quantity;
+                    return acc;
+                  },
+                  { sum: 0, quantity: 0 }
+                )
+              : response.sold.reduce(
+                  (acc, cur) => {
+                    acc.sum += cur.price * cur.quantity;
+                    acc.quantity += cur.quantity;
+                    return acc;
+                  },
+                  { sum: 0, quantity: 0 }
+                );
+
+          const avgPrice = Number(
+            Math.round(price.sum / price.quantity + "e2") + "e-2"
           );
-          const avgBuyPrice = Number(
-            Math.round(buyPrice.sum / buyPrice.quantity + "e2") + "e-2"
-          );
-          return { x: parseInt(key), y: avgBuyPrice };
+          return { x: parseInt(key), y: avgPrice };
         });
-        ApexCharts.exec("buyprice", "updateSeries", [{ data: data }]);
-        console.log(data);
+        const chartId = transType === "bought" ? "buyprice" : "sellprice";
+        ApexCharts.exec(chartId, "updateSeries", [{ data: data }]);
       } else {
         console.log("No data found");
       }
     });
 }
 
-export function updateAggPrice() {
-  const date = new Date()
-    .toLocaleString("en-CA", { timeZone: "Asia/Bangkok" })
-    .substring(0, 10);
+export function historicalAdminPrice(date) {
+  let status = "";
   db.ref("Market/admin")
     .child(date)
-    .on("value", (snapshot) => {
+    .get()
+    .then((snapshot) => {
       if (snapshot.exists()) {
         const data = Object.entries(snapshot.val()).map(([key, response]) => {
           let marketPrice = 0;
@@ -90,9 +97,14 @@ export function updateAggPrice() {
         });
 
         ApexCharts.exec("aggprice", "updateSeries", [{ data: data }]);
-        console.log(data);
+        status = "ok";
       } else {
         console.log("No data found");
+        status = "No data found";
       }
+    })
+    .catch((err) => {
+      console.log(err);
     });
+  return status;
 }
