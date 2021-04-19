@@ -54,7 +54,6 @@ export default function Prosumer() {
   const [selectedSellDate, setSelectedSellDate] = useState(new Date());
 
   const user = firebase.auth().currentUser;
-  updatePrice();
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -114,6 +113,10 @@ export default function Prosumer() {
         });
     }
   }, [selectedDate]);
+
+  useEffect(() => {
+    updatePrice();
+  });
 
   return (
     <div className="grid-page">

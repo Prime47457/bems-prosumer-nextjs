@@ -28,8 +28,6 @@ export default function AdminProsumer() {
   const [selectedLoadDate, setSelectedLoadDate] = useState(new Date());
   const [selectedPriceDate, setSelectedPriceDate] = useState(new Date());
 
-  updateAggPrice();
-
   const urlArray = [
     "https://www.bems.chula.ac.th/web/cham5-api/api/v1/building/3/building_usage/day/peak",
     "https://www.bems.chula.ac.th/web/cham5-api/api/v1/building/4/building_usage/day/peak",
@@ -68,6 +66,10 @@ export default function AdminProsumer() {
       updateAdminChart(urlArray);
     }
   }, [selectedLoadDate]);
+
+  useEffect(() => {
+    updateAggPrice();
+  });
 
   return (
     <div className="grid-page">
