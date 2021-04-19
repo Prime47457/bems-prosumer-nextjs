@@ -41,9 +41,12 @@ const Buyprice = dynamic(
   { ssr: false }
 );
 
-const Sellprice = dynamic(() => {
-  return import("../../components/charts/prosumer/Sellprice");
-});
+const Sellprice = dynamic(
+  () => {
+    return import("../../components/charts/prosumer/Sellprice");
+  },
+  { ssr: false }
+);
 
 export default function Prosumer() {
   const [selectedDate, setSelectedDate] = useState(new Date());
