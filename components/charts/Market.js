@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
+import updatePrice from "../../assets/updatePrice";
 
-const Electricity = () => {
+const Market = () => {
+  updatePrice();
+
   const [chart, setChart] = useState({
-    series: [],
+    series: [
+      {
+        name: "Price",
+        data: [],
+      },
+    ],
     responsive: [
       {
         breakpoint: 1000,
@@ -16,8 +24,8 @@ const Electricity = () => {
     ],
     options: {
       chart: {
-        id: "load",
-        height: 200,
+        id: "buyprice",
+        height: 400,
         width: "100%",
         type: "column",
         toolbar: {
@@ -45,7 +53,7 @@ const Electricity = () => {
         },
       },
       title: {
-        text: "Electricity Load",
+        text: "Transfer Market Price",
       },
       dataLabels: {
         enabled: true,
@@ -68,7 +76,7 @@ const Electricity = () => {
       yaxis: [
         {
           title: {
-            text: "Power(kW)",
+            text: "Price(Baht)",
           },
         },
       ],
@@ -81,7 +89,7 @@ const Electricity = () => {
         options={chart.options}
         series={chart.series}
         type="bar"
-        height={300}
+        height={400}
         width="100%"
         responsive={chart.responsive}
       />
@@ -89,4 +97,4 @@ const Electricity = () => {
   );
 };
 
-export default Electricity;
+export default Market;
