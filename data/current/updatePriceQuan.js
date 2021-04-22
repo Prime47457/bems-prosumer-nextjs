@@ -18,60 +18,51 @@ if (!firebase.apps.length) {
 
 const db = firebase.database();
 
-export default function historicalPriceQuan(date, userId, transType) {
+export default function updateBuyPriceQuan() {
+  const user = firebase.auth().currentUser;
+  const date = new Date()
+    .toLocaleString("en-CA", { timeZone: "Asia/Bangkok" })
+    .substring(0, 10);
   db.ref("Prosumer")
-    .child(userId)
+    .child(user.uid)
     .child(date)
-    .get()
-    .then((snapshot) => {
+    .on("value", (snapshot) => {
       if (snapshot.exists()) {
-        const avgPrices = Object.entries(snapshot.val()).map(
+        const buyPriceData = Object.entries(snapshot.val()).map(
           ([key, response]) => {
-            const price =
-              transType === "bought"
-                ? response.bought.reduce(
-                    (acc, cur) => {
-                      acc.sum += cur.price * cur.quantity;
-                      acc.quantity += cur.quantity;
-                      return acc;
-                    },
-                    { sum: 0, quantity: 0 }
-                  )
-                : response.sold.reduce(
-                    (acc, cur) => {
-                      acc.sum += cur.price * cur.quantity;
-                      acc.quantity += cur.quantity;
-                      return acc;
-                    },
-                    { sum: 0, quantity: 0 }
-                  );
-            const avgPrice = Number(
-              Math.round(price.sum / price.quantity + "e2") + "e-2"
+            const buyPrice = response.bought.reduce(
+              (acc, cur) => {
+                acc.sum += cur.price * cur.quantity;
+                acc.quantity += cur.quantity;
+                return acc;
+              },
+              { sum: 0, quantity: 0 }
             );
-            return { x: parseInt(key), y: avgPrice };
+            const avgBuyPrice = Number(
+              Math.round(buyPrice.sum / buyPrice.quantity + "e2") + "e-2"
+            );
+            return { x: parseInt(key), y: avgBuyPrice };
           }
         );
-        const totalQuantities = Object.entries(snapshot.val()).map(
+        const buyQuanData = Object.entries(snapshot.val()).map(
           ([key, response]) => {
-            const quantity =
-              transType === "bought"
-                ? response.bought.reduce((acc, cur) => {
-                    return acc + cur.quantity;
-                  }, 0)
-                : response.sold.reduce((acc, cur) => {
-                    return acc + cur.quantity;
-                  }, 0);
-            return { x: parseInt(key), y: quantity };
+            const buyQuantity = response.bought.reduce((acc, cur) => {
+              return acc + cur.quantity;
+            }, 0);
+            return { x: parseInt(key), y: buyQuantity };
           }
         );
-        const chartId = transType === "bought" ? "buyprice" : "sellprice";
-        ApexCharts.exec(chartId, "updateOptions", {
+        ApexCharts.exec("buyprice", "updateOptions", {
           series: [
             {
-              data: avgPrices,
+              name: "Avg price bought(baht)",
+              type: "line",
+              data: buyPriceData,
             },
             {
-              data: totalQuantities,
+              name: "Quantity bought(kW)",
+              type: "column",
+              data: buyQuanData,
             },
           ],
         });
@@ -81,12 +72,67 @@ export default function historicalPriceQuan(date, userId, transType) {
     });
 }
 
-export function historicalAdminPriceQuan(date) {
-  let status = "";
+export function updateSellPriceQuan() {
+  const user = firebase.auth().currentUser;
+  const date = new Date()
+    .toLocaleString("en-CA", { timeZone: "Asia/Bangkok" })
+    .substring(0, 10);
+  db.ref("Prosumer")
+    .child(user.uid)
+    .child(date)
+    .on("value", (snapshot) => {
+      if (snapshot.exists()) {
+        const sellPriceData = Object.entries(snapshot.val()).map(
+          ([key, response]) => {
+            const sellPrice = response.sold.reduce(
+              (acc, cur) => {
+                acc.sum += cur.price * cur.quantity;
+                acc.quantity += cur.quantity;
+                return acc;
+              },
+              { sum: 0, quantity: 0 }
+            );
+            const avgSellPrice = Number(
+              Math.round(sellPrice.sum / sellPrice.quantity + "e2") + "e-2"
+            );
+            return { x: parseInt(key), y: avgSellPrice };
+          }
+        );
+        const sellQuanData = Object.entries(snapshot.val()).map(
+          ([key, response]) => {
+            const sellQuantity = response.sold.reduce((acc, cur) => {
+              return acc + cur.quantity;
+            }, 0);
+            return { x: parseInt(key), y: sellQuantity };
+          }
+        );
+        ApexCharts.exec("sellprice", "updateOptions", {
+          series: [
+            {
+              name: "Avg price sold(baht)",
+              type: "line",
+              data: sellPriceData,
+            },
+            {
+              name: "Quantity sold(kW)",
+              type: "column",
+              data: sellQuanData,
+            },
+          ],
+        });
+      } else {
+        console.log("No data found");
+      }
+    });
+}
+
+export function updateAggPriceQuan() {
+  const date = new Date()
+    .toLocaleString("en-CA", { timeZone: "Asia/Bangkok" })
+    .substring(0, 10);
   db.ref("Market/admin")
     .child(date)
-    .get()
-    .then((snapshot) => {
+    .on("value", (snapshot) => {
       if (snapshot.exists()) {
         const avgPrices = Object.entries(snapshot.val()).map(
           ([key, response]) => {
@@ -148,18 +194,18 @@ export function historicalAdminPriceQuan(date) {
           }
         );
 
-        ApexCharts.exec("aggprice", "updateSeries", [{ data: avgPrices }]);
-        ApexCharts.exec("aggquantity", "updateSeries", [
-          { data: totalQuantities },
+        ApexCharts.exec("aggprice", "updateSeries", [
+          {
+            data: avgPrices,
+          },
         ]);
-        status = "ok";
+        ApexCharts.exec("aggquantity", "updateSeries", [
+          {
+            data: totalQuantities,
+          },
+        ]);
       } else {
         console.log("No data found");
-        status = "No data found";
       }
-    })
-    .catch((err) => {
-      console.log(err);
     });
-  return status;
 }

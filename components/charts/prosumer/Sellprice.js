@@ -5,7 +5,13 @@ const Sellprice = () => {
   const [chart, setChart] = useState({
     series: [
       {
-        name: "Average price sold",
+        name: "Average price sold(baht)",
+        type: "line",
+        data: [],
+      },
+      {
+        name: "Quantity sold(kW)",
+        type: "column",
         data: [],
       },
     ],
@@ -24,7 +30,7 @@ const Sellprice = () => {
         id: "sellprice",
         height: 400,
         width: "100%",
-        type: "column",
+        type: "line",
         toolbar: {
           show: true,
           tools: {
@@ -54,10 +60,10 @@ const Sellprice = () => {
       },
       dataLabels: {
         enabled: true,
-        enabledOnSeries: [1],
+        enabledOnSeries: [0],
       },
       noData: { text: "Loading..." },
-      colors: ["#243aa1"],
+      colors: ["#e1bd50", "#243aa1"],
       xaxis: {
         type: "datetime",
         labels: {
@@ -70,13 +76,13 @@ const Sellprice = () => {
           },
         },
       },
-      yaxis: [
-        {
-          title: {
-            text: "Price(Baht)",
-          },
-        },
-      ],
+      // yaxis: [
+      //   {
+      //     title: {
+      //       text: "Price(Baht)",
+      //     },
+      //   },
+      // ],
     },
   });
 
@@ -85,7 +91,7 @@ const Sellprice = () => {
       <Chart
         options={chart.options}
         series={chart.series}
-        type="bar"
+        type="line"
         height={400}
         width="100%"
         responsive={chart.responsive}

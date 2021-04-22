@@ -1,16 +1,11 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
 
-const Buyprice = () => {
+const AggQuantity = () => {
   const [chart, setChart] = useState({
     series: [
       {
-        name: "Avg price bought(baht)",
-        type: "line",
-        data: [],
-      },
-      {
-        name: "Quantity bought(kW)",
+        name: "Total Quantity Exchanged(kW)",
         type: "column",
         data: [],
       },
@@ -27,10 +22,10 @@ const Buyprice = () => {
     ],
     options: {
       chart: {
-        id: "buyprice",
+        id: "aggquantity",
         height: 400,
         width: "100%",
-        type: "line",
+        type: "bar",
         toolbar: {
           show: true,
           tools: {
@@ -56,14 +51,14 @@ const Buyprice = () => {
         },
       },
       title: {
-        text: "Transfer Market Buying Price",
+        text: "Aggregated Transfer Market Quantity",
       },
       dataLabels: {
-        enabled: true,
+        enabled: false,
         enabledOnSeries: [0],
       },
       noData: { text: "Loading..." },
-      colors: ["#e1bd50", "#243aa1"],
+      colors: ["#243aa1"],
       xaxis: {
         type: "datetime",
         labels: {
@@ -91,7 +86,7 @@ const Buyprice = () => {
       <Chart
         options={chart.options}
         series={chart.series}
-        type="line"
+        type="bar"
         height={400}
         width="100%"
         responsive={chart.responsive}
@@ -100,4 +95,4 @@ const Buyprice = () => {
   );
 };
 
-export default Buyprice;
+export default AggQuantity;

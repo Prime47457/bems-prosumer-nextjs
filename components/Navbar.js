@@ -48,7 +48,7 @@ export default function Navbar() {
         }}
       >
         <SideNav.Toggle />
-        <SideNav.Nav defaultSelected="Grid">
+        <SideNav.Nav>
           <NavItem eventKey="Grid" className="nav-item">
             <NavIcon className="nav-icon">
               <HomeRoundedIcon />

@@ -5,7 +5,8 @@ const AggMarket = () => {
   const [chart, setChart] = useState({
     series: [
       {
-        name: "Price",
+        name: "Avg Price(baht)",
+        type: "line",
         data: [],
       },
     ],
@@ -24,7 +25,7 @@ const AggMarket = () => {
         id: "aggprice",
         height: 400,
         width: "100%",
-        type: "column",
+        type: "line",
         toolbar: {
           show: true,
           tools: {
@@ -54,10 +55,10 @@ const AggMarket = () => {
       },
       dataLabels: {
         enabled: true,
-        enabledOnSeries: [1],
+        enabledOnSeries: [0],
       },
       noData: { text: "Loading..." },
-      colors: ["#243aa1"],
+      colors: ["#e1bd50", "#243aa1"],
       xaxis: {
         type: "datetime",
         labels: {
@@ -70,13 +71,13 @@ const AggMarket = () => {
           },
         },
       },
-      yaxis: [
-        {
-          title: {
-            text: "Price(Baht)",
-          },
-        },
-      ],
+      // yaxis: [
+      //   {
+      //     title: {
+      //       text: "Price(Baht)",
+      //     },
+      //   },
+      // ],
     },
   });
 
@@ -85,7 +86,7 @@ const AggMarket = () => {
       <Chart
         options={chart.options}
         series={chart.series}
-        type="bar"
+        type="line"
         height={400}
         width="100%"
         responsive={chart.responsive}

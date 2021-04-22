@@ -6,9 +6,9 @@ import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import Navbar from "../../components/Navbar";
 import dynamic from "next/dynamic";
 import { historicalAdminData } from "../../data/historical/historicalData";
-import { historicalAdminPrice } from "../../data/historical/historicalPrice";
+import { historicalAdminPriceQuan } from "../../data/historical/historicalPrice";
 import { updateAdminChart } from "../../data/current/updateChart";
-import { updateAggPrice } from "../../data/current/updatePrice";
+import { updateAggPriceQuan } from "../../data/current/updatePriceQuan";
 
 const AggElectricity = dynamic(
   () => {
@@ -20,6 +20,13 @@ const AggElectricity = dynamic(
 const AggMarket = dynamic(
   () => {
     return import("../../components/charts/admin/AggMarket");
+  },
+  { ssr: false }
+);
+
+const AggQuantity = dynamic(
+  () => {
+    return import("../../components/charts/admin/AggQuantity");
   },
   { ssr: false }
 );
@@ -49,7 +56,7 @@ export default function AdminProsumer() {
 
   const handleDatePriceChange = (date) => {
     setSelectedPriceDate(date);
-    const status = historicalAdminPrice(
+    const status = historicalAdminPriceQuan(
       date
         .toLocaleString("en-CA", { timeZone: "Asia/Bangkok" })
         .substring(0, 10)
@@ -64,12 +71,28 @@ export default function AdminProsumer() {
       selectedLoadDate.setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0)
     ) {
       updateAdminChart(urlArray);
+      if (
+        selectedLoadDate.setHours(0, 0, 0, 0) !==
+        new Date().setHours(0, 0, 0, 0)
+      ) {
+        setSelectedLoadDate(new Date());
+      }
     }
   }, [selectedLoadDate]);
 
   useEffect(() => {
-    updateAggPrice();
-  });
+    if (
+      selectedPriceDate.setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0)
+    ) {
+      updateAggPriceQuan();
+      if (
+        selectedPriceDate.setHours(0, 0, 0, 0) !==
+        new Date().setHours(0, 0, 0, 0)
+      ) {
+        setSelectedPriceDate(new Date());
+      }
+    }
+  }, [selectedPriceDate]);
 
   return (
     <div className="grid-page">
@@ -105,6 +128,7 @@ export default function AdminProsumer() {
             />
           </MuiPickersUtilsProvider>
           <AggMarket />
+          <AggQuantity />
         </Paper>
       </div>
     </div>
