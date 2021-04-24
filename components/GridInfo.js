@@ -18,12 +18,24 @@ import updateChart from "../data/current/updateChart";
 import updateBuyPriceQuan, {
   updateSellPriceQuan,
 } from "../data/current/updatePriceQuan";
-import Buyprice from "./charts/prosumer/Buyprice";
-import Sellprice from "./charts/prosumer/Sellprice";
 
 const Electricity = dynamic(
   () => {
     return import("../components/charts/prosumer/Electricity");
+  },
+  { ssr: false }
+);
+
+const Buyprice = dynamic(
+  () => {
+    return import("./charts/prosumer/Buyprice");
+  },
+  { ssr: false }
+);
+
+const Sellprice = dynamic(
+  () => {
+    return import("./charts/prosumer/Sellprice");
   },
   { ssr: false }
 );
