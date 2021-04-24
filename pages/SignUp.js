@@ -50,7 +50,7 @@ export default function LoginProsumer() {
         setOpenSuccess(true);
         setTimeout(() => {
           router.push("/Login");
-        }, 1000);
+        }, 100);
       })
       .catch((error) => {
         setErrorMessage(error);

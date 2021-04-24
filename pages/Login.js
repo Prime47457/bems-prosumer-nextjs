@@ -34,7 +34,7 @@ export default function Login() {
         setOpenSuccess(true);
         setTimeout(() => {
           router.push("/Grid");
-        }, 1000);
+        }, 100);
       })
       .catch((error) => {
         setErrorMessage(error);

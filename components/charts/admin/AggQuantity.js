@@ -23,7 +23,7 @@ const AggQuantity = () => {
     options: {
       chart: {
         id: "aggquantity",
-        height: 400,
+        height: 250,
         width: "100%",
         type: "bar",
         toolbar: {
@@ -87,7 +87,7 @@ const AggQuantity = () => {
         options={chart.options}
         series={chart.series}
         type="bar"
-        height={400}
+        height={250}
         width="100%"
         responsive={chart.responsive}
       />

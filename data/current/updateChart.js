@@ -2,7 +2,7 @@ import axios from "axios";
 import groupBy from "lodash/groupBy";
 import map from "lodash/map";
 
-export default function updateChart(url) {
+export default function updateChart(url, floor) {
   let chartData = [];
   axios
     .get(url)
@@ -25,6 +25,11 @@ export default function updateChart(url) {
         }
       );
       ApexCharts.exec("load", "updateSeries", [{ data: transformedData }]);
+      ApexCharts.exec("load", "updateOptions", {
+        title: {
+          text: "Electricity Load of " + floor,
+        },
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -32,14 +37,16 @@ export default function updateChart(url) {
 }
 
 export async function updateAdminChart(urlArray) {
-  const data = await Promise.all(
-    urlArray.map(async (url) => {
-      const res = await axios.get(url);
-      return res.data.graph.map((element) => {
+  const data = [];
+  for (const url of urlArray) {
+    const res = await axios.get(url);
+    data.push(
+      res.data.graph.map((element) => {
         return { x: element.x, y: element.y };
-      });
-    })
-  );
+      })
+    );
+  }
+
   const transformedData = map(
     groupBy(data.flat(), (value) => new Date(value.x).getHours()),
     (items, xaxis) => {
@@ -55,4 +62,22 @@ export async function updateAdminChart(urlArray) {
   );
 
   ApexCharts.exec("aggload", "updateSeries", [{ data: transformedData }]);
+}
+
+export async function updateAdminRadialChart(urlArray) {
+  const data = [];
+  const label = [];
+  for (const url of urlArray) {
+    const res = await axios.get(url);
+    const sum = res.data.graph.reduce((acc, cur) => {
+      return acc + cur.y;
+    }, 0);
+    data.push(Number(Math.round(sum + "e2") + "e-2"));
+    label.push(res.data.name);
+  }
+
+  ApexCharts.exec("aggdonut", "updateOptions", {
+    series: data,
+    labels: label,
+  });
 }

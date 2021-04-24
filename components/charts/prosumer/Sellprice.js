@@ -6,7 +6,7 @@ const Sellprice = () => {
     series: [
       {
         name: "Average price sold(baht)",
-        type: "line",
+        type: "area",
         data: [],
       },
       {
@@ -30,7 +30,7 @@ const Sellprice = () => {
         id: "sellprice",
         height: 400,
         width: "100%",
-        type: "line",
+        type: "area",
         toolbar: {
           show: true,
           tools: {
@@ -59,7 +59,7 @@ const Sellprice = () => {
         text: "Transfer Market Selling Price",
       },
       dataLabels: {
-        enabled: true,
+        enabled: false,
         enabledOnSeries: [0],
       },
       noData: { text: "Loading..." },
@@ -91,8 +91,8 @@ const Sellprice = () => {
       <Chart
         options={chart.options}
         series={chart.series}
-        type="line"
-        height={400}
+        type="area"
+        height={250}
         width="100%"
         responsive={chart.responsive}
       />

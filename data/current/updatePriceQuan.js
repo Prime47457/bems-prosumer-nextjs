@@ -18,15 +18,15 @@ if (!firebase.apps.length) {
 
 const db = firebase.database();
 
-export default function updateBuyPriceQuan() {
-  const user = firebase.auth().currentUser;
+export default function updateBuyPriceQuan(uid) {
   const date = new Date()
     .toLocaleString("en-CA", { timeZone: "Asia/Bangkok" })
     .substring(0, 10);
   db.ref("Prosumer")
-    .child(user.uid)
+    .child(uid)
     .child(date)
-    .on("value", (snapshot) => {
+    .get()
+    .then((snapshot) => {
       if (snapshot.exists()) {
         const buyPriceData = Object.entries(snapshot.val()).map(
           ([key, response]) => {
@@ -56,12 +56,10 @@ export default function updateBuyPriceQuan() {
           series: [
             {
               name: "Avg price bought(baht)",
-              type: "line",
               data: buyPriceData,
             },
             {
               name: "Quantity bought(kW)",
-              type: "column",
               data: buyQuanData,
             },
           ],
@@ -72,15 +70,15 @@ export default function updateBuyPriceQuan() {
     });
 }
 
-export function updateSellPriceQuan() {
-  const user = firebase.auth().currentUser;
+export function updateSellPriceQuan(uid) {
   const date = new Date()
     .toLocaleString("en-CA", { timeZone: "Asia/Bangkok" })
     .substring(0, 10);
   db.ref("Prosumer")
-    .child(user.uid)
+    .child(uid)
     .child(date)
-    .on("value", (snapshot) => {
+    .get()
+    .then((snapshot) => {
       if (snapshot.exists()) {
         const sellPriceData = Object.entries(snapshot.val()).map(
           ([key, response]) => {
@@ -110,12 +108,10 @@ export function updateSellPriceQuan() {
           series: [
             {
               name: "Avg price sold(baht)",
-              type: "line",
               data: sellPriceData,
             },
             {
               name: "Quantity sold(kW)",
-              type: "column",
               data: sellQuanData,
             },
           ],
@@ -132,7 +128,8 @@ export function updateAggPriceQuan() {
     .substring(0, 10);
   db.ref("Market/admin")
     .child(date)
-    .on("value", (snapshot) => {
+    .get()
+    .then((snapshot) => {
       if (snapshot.exists()) {
         const avgPrices = Object.entries(snapshot.val()).map(
           ([key, response]) => {

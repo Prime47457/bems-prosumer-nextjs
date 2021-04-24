@@ -22,7 +22,7 @@ const AggElectricity = () => {
     options: {
       chart: {
         id: "aggload",
-        height: 400,
+        height: 250,
         width: "100%",
         type: "column",
         toolbar: {
@@ -86,7 +86,7 @@ const AggElectricity = () => {
         options={chart.options}
         series={chart.series}
         type="bar"
-        height={400}
+        height={250}
         width="100%"
         responsive={chart.responsive}
       />

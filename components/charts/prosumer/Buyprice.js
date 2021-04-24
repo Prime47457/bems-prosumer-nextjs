@@ -6,7 +6,7 @@ const Buyprice = () => {
     series: [
       {
         name: "Avg price bought(baht)",
-        type: "line",
+        type: "area",
         data: [],
       },
       {
@@ -59,7 +59,7 @@ const Buyprice = () => {
         text: "Transfer Market Buying Price",
       },
       dataLabels: {
-        enabled: true,
+        enabled: false,
         enabledOnSeries: [0],
       },
       noData: { text: "Loading..." },
@@ -91,8 +91,8 @@ const Buyprice = () => {
       <Chart
         options={chart.options}
         series={chart.series}
-        type="line"
-        height={400}
+        type="area"
+        height={250}
         width="100%"
         responsive={chart.responsive}
       />

@@ -23,7 +23,7 @@ export default function Navbar() {
       setOpenSuccess(true);
       setTimeout(() => {
         router.push("/Login");
-      }, 1000);
+      }, 100);
     });
   };
 
@@ -77,7 +77,7 @@ export default function Navbar() {
                 Prosumer Information
               </NavText>
             </NavItem>
-            <NavItem eventKey="prosumers/p2p">
+            <NavItem eventKey="prosumers/P2PDiagram">
               <NavText>P2P Diagram</NavText>
             </NavItem>
           </NavItem>

@@ -110,8 +110,8 @@ export default function Prosumer() {
         .get()
         .then((doc) => {
           const url = doc.data().link;
-          updateChart(url);
-          console.log("damn");
+          const floor = "Floor " + doc.data().floor;
+          updateChart(url, floor);
         });
       if (
         selectedDate.setHours(0, 0, 0, 0) !== new Date().setHours(0, 0, 0, 0)
@@ -126,7 +126,7 @@ export default function Prosumer() {
       user !== null &&
       selectedBuyDate.setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0)
     ) {
-      updateBuyPriceQuan();
+      updateBuyPriceQuan(user.uid);
       if (
         selectedBuyDate.setHours(0, 0, 0, 0) !== new Date().setHours(0, 0, 0, 0)
       ) {
@@ -140,7 +140,7 @@ export default function Prosumer() {
       user !== null &&
       selectedSellDate.setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0)
     ) {
-      updateSellPriceQuan();
+      updateSellPriceQuan(user.uid);
       if (
         selectedSellDate.setHours(0, 0, 0, 0) !==
         new Date().setHours(0, 0, 0, 0)
@@ -157,7 +157,7 @@ export default function Prosumer() {
       </Head>
       <Navbar />
       <div className="chart-container">
-        <Paper>
+        <Paper elevation={3}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <DatePicker
               disableToolbar
@@ -172,7 +172,7 @@ export default function Prosumer() {
           </MuiPickersUtilsProvider>
           <Electricity date={selectedDate} />
         </Paper>
-        <Paper>
+        <Paper elevation={3}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <DatePicker
               disableToolbar
@@ -187,7 +187,7 @@ export default function Prosumer() {
           </MuiPickersUtilsProvider>
           <Buyprice />
         </Paper>
-        <Paper>
+        <Paper elevation={3}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <DatePicker
               disableToolbar

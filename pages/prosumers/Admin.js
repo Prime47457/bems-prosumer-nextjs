@@ -7,7 +7,10 @@ import Navbar from "../../components/Navbar";
 import dynamic from "next/dynamic";
 import { historicalAdminData } from "../../data/historical/historicalData";
 import { historicalAdminPriceQuan } from "../../data/historical/historicalPrice";
-import { updateAdminChart } from "../../data/current/updateChart";
+import {
+  updateAdminChart,
+  updateAdminRadialChart,
+} from "../../data/current/updateChart";
 import { updateAggPriceQuan } from "../../data/current/updatePriceQuan";
 
 const AggElectricity = dynamic(
@@ -30,6 +33,10 @@ const AggQuantity = dynamic(
   },
   { ssr: false }
 );
+
+const AggDonut = dynamic(() => {
+  return import("../../components/charts/admin/AggDonut");
+});
 
 export default function AdminProsumer() {
   const [selectedLoadDate, setSelectedLoadDate] = useState(new Date());
@@ -94,12 +101,16 @@ export default function AdminProsumer() {
     }
   }, [selectedPriceDate]);
 
+  useEffect(() => {
+    updateAdminRadialChart(urlArray);
+  }, []);
+
   return (
     <div className="grid-page">
       <Head>Total Prosumer Information</Head>
       <Navbar />
       <div className="chart-container">
-        <Paper>
+        <Paper elevation={3}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <DatePicker
               disableToolbar
@@ -114,7 +125,7 @@ export default function AdminProsumer() {
           </MuiPickersUtilsProvider>
           <AggElectricity />
         </Paper>
-        <Paper>
+        <Paper elevation={3}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <DatePicker
               disableToolbar
@@ -129,6 +140,9 @@ export default function AdminProsumer() {
           </MuiPickersUtilsProvider>
           <AggMarket />
           <AggQuantity />
+        </Paper>
+        <Paper elevation={3}>
+          <AggDonut />
         </Paper>
       </div>
     </div>

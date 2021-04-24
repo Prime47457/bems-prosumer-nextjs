@@ -23,9 +23,9 @@ const AggMarket = () => {
     options: {
       chart: {
         id: "aggprice",
-        height: 400,
+        height: 250,
         width: "100%",
-        type: "line",
+        type: "area",
         toolbar: {
           show: true,
           tools: {
@@ -86,8 +86,8 @@ const AggMarket = () => {
       <Chart
         options={chart.options}
         series={chart.series}
-        type="line"
-        height={400}
+        type="area"
+        height={250}
         width="100%"
         responsive={chart.responsive}
       />

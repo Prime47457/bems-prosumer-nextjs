@@ -17,7 +17,6 @@
     "@trendmicro/react-sidenav": "^0.5.0",
     "apexcharts": "^3.26.0",
     "axios": "^0.21.1",
-    "d3": "^6.6.2",
     "date-fns": "^2.21.0",
     "firebase": "^8.3.1",
     "firebase-admin": "^9.6.0",

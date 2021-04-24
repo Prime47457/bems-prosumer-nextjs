@@ -86,7 +86,7 @@ const Electricity = () => {
         options={chart.options}
         series={chart.series}
         type="bar"
-        height={300}
+        height={200}
         width="100%"
         responsive={chart.responsive}
       />
