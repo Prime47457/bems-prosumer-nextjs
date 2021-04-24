@@ -34,9 +34,12 @@ const AggQuantity = dynamic(
   { ssr: false }
 );
 
-const AggDonut = dynamic(() => {
-  return import("../../components/charts/admin/AggDonut");
-});
+const AggDonut = dynamic(
+  () => {
+    return import("../../components/charts/admin/AggDonut");
+  },
+  { ssr: false }
+);
 
 export default function AdminProsumer() {
   const [selectedLoadDate, setSelectedLoadDate] = useState(new Date());
