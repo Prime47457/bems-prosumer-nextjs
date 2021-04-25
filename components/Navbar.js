@@ -77,7 +77,7 @@ export default function Navbar() {
                 Prosumer Information
               </NavText>
             </NavItem>
-            <NavItem eventKey="prosumers/PtoPDiagram">
+            <NavItem eventKey="prosumers/P2PDiagram">
               <NavText>P2P Diagram</NavText>
             </NavItem>
           </NavItem>
