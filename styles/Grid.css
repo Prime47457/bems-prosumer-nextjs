@@ -36,10 +36,8 @@
 }
 
 .name-surname {
-  display: flex;
   align-items: center;
   flex-direction: row;
-  margin-right: 40px;
 }
 
 .MuiSvgIcon-root {

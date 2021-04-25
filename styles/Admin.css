@@ -1,0 +1,95 @@
+.id-information {
+  display: flex;
+  justify-content: center;
+}
+
+.id-producer {
+  margin-right: 80px;
+  text-align: center;
+}
+
+.id-consumer {
+  text-align: center;
+}
+
+.time-information {
+  width: 100%;
+}
+
+.time-interval {
+  display: flex;
+  justify-content: center;
+  /* border: 1px solid #fff; */
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+  padding: 0px 40px;
+}
+
+.interval-information {
+}
+
+.time-information h5 {
+  margin-right: auto;
+}
+
+.time-left {
+  margin-left: 60px;
+}
+
+.interval-right {
+  margin-right: 60px;
+}
+
+.sale {
+  text-align: center;
+}
+
+.sale-information {
+  display: flex;
+  justify-content: center;
+  /* border: 1px solid #fff; */
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+  padding-left: 40px;
+  padding-right: 40px;
+  margin-top: 40px;
+  padding-top: 10px;
+}
+
+.border-color {
+  border: 1px solid #cecece;
+  border-top: 0;
+  border-left: 0;
+}
+
+.producer-information-left {
+  margin-left: 80px;
+  margin-right: 50px;
+  margin-top: 80px;
+}
+
+.producer-information-right {
+  margin-top: 80px;
+  margin-right: 50px;
+}
+
+@media screen and (max-width: 1100px) {
+  .total-prosumer {
+    display: block !important;
+  }
+
+  .total-prosumer-body {
+    max-width: 100% !important;
+  }
+
+  .producer-information-right {
+    margin-left: 80px;
+    margin-top: 40px;
+  }
+
+  .producer-information-left {
+    margin-top: 40px;
+  }
+}
