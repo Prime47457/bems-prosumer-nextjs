@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
-import { Button, Grid, Paper, TextField } from "@material-ui/core";
+import { Button, Grid, Paper, TextField, MenuItem } from "@material-ui/core";
 import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import Navbar from "../../components/Navbar";
@@ -56,6 +56,26 @@ export default function Prosumer() {
   const [selectedSellDate, setSelectedSellDate] = useState(new Date());
 
   const user = firebase.auth().currentUser;
+
+  const [currency, setCurrency] = React.useState("EUR");
+  const currencies = [
+    {
+      value: "USD",
+      label: "$",
+    },
+    {
+      value: "EUR",
+      label: "< 19.00 >",
+    },
+    {
+      value: "BTC",
+      label: "฿",
+    },
+    {
+      value: "JPY",
+      label: "¥",
+    },
+  ];
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -156,53 +176,128 @@ export default function Prosumer() {
         <title>Prosumer Information</title>
       </Head>
       <Navbar />
-      <div className="chart-container">
-        <Paper>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DatePicker
-              disableToolbar
-              variant="inline"
-              format="yyyy-MM-dd"
-              margin="normal"
-              id="load-chart"
-              value={selectedDate}
-              onChange={handleDateChange}
-              autoOk={true}
-            />
-          </MuiPickersUtilsProvider>
-          <Electricity date={selectedDate} />
-        </Paper>
-        <Paper>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DatePicker
-              disableToolbar
-              variant="inline"
-              format="yyyy-MM-dd"
-              margin="normal"
-              id="price-chart"
-              value={selectedBuyDate}
-              onChange={handleDateBuyChange}
-              autoOk={true}
-            />
-          </MuiPickersUtilsProvider>
-          <Buyprice />
-        </Paper>
-        <Paper>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DatePicker
-              disableToolbar
-              variant="inline"
-              format="yyyy-MM-dd"
-              margin="normal"
-              id="price-chart"
-              value={selectedSellDate}
-              onChange={handleDateSellChange}
-              autoOk={true}
-            />
-          </MuiPickersUtilsProvider>
-          <Sellprice />
-        </Paper>
-      </div>
+
+      <Grid container spacing={3} className="total-prosumer">
+        <Grid item xs={6} className="total-prosumer-body">
+          <div className="producer-information-left">
+            <h1>Prosumer Information</h1>
+
+            <div className="prosumer-info-box1">
+              <p>Name: {"Rachata"}</p>
+              <hr className="border-color" />
+              <p className="building">Building: {"ENG 100"}</p>
+              <hr className="border-color building-line" />
+              <div className="pv-load">
+                <p className="load">Load: {"23.4"} MW</p>
+                <p>PV: {"27.3"} MW</p>
+              </div>
+            </div>
+
+            <div className="prosumer-info-box2">
+              <div className="prosumer-info-subbox2">
+                <p>Time: </p>
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  value={currency}
+                  // onChange={handleChange}
+                  variant="outlined"
+                >
+                  {currencies.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </div>
+
+              <div className="prosumer-info-subbox2">
+                <p>Price:</p>
+                <TextField
+                  id="outlined-basic"
+                  value="125.3 baht"
+                  variant="outlined"
+                />
+              </div>
+
+              <div className="prosumer-info-subbox2">
+                <p>Amount:</p>
+                <TextField
+                  id="outlined-basic"
+                  value="13 MW"
+                  variant="outlined"
+                />
+              </div>
+            </div>
+          </div>
+        </Grid>
+
+        <Grid item xs={6} className="total-prosumer-body">
+          <div className="producer-information-right">
+            <div className="chart-container">
+              <Paper>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <DatePicker
+                    disableToolbar
+                    variant="inline"
+                    format="yyyy-MM-dd"
+                    margin="normal"
+                    id="load-chart"
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                    autoOk={true}
+                  />
+                </MuiPickersUtilsProvider>
+                <Electricity date={selectedDate} />
+              </Paper>
+
+              <div
+                style={{
+                  marginTop: "40px",
+                }}
+              />
+
+              <Paper>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <DatePicker
+                    disableToolbar
+                    variant="inline"
+                    format="yyyy-MM-dd"
+                    margin="normal"
+                    id="price-chart"
+                    value={selectedBuyDate}
+                    onChange={handleDateBuyChange}
+                    autoOk={true}
+                  />
+                </MuiPickersUtilsProvider>
+                <Buyprice />
+              </Paper>
+
+              <div
+                style={{
+                  marginTop: "40px",
+                }}
+              />
+
+              <Paper>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <DatePicker
+                    disableToolbar
+                    variant="inline"
+                    format="yyyy-MM-dd"
+                    margin="normal"
+                    id="price-chart"
+                    value={selectedSellDate}
+                    onChange={handleDateSellChange}
+                    autoOk={true}
+                  />
+                </MuiPickersUtilsProvider>
+                <Sellprice />
+              </Paper>
+            </div>
+          </div>
+        </Grid>
+      </Grid>
     </div>
   );
 }
