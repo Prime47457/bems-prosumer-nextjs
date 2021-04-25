@@ -9,16 +9,6 @@ const AggElectricity = () => {
         data: [],
       },
     ],
-    responsive: [
-      {
-        breakpoint: 1000,
-        options: {
-          legend: {
-            position: "bottom",
-          },
-        },
-      },
-    ],
     options: {
       chart: {
         id: "aggload",
@@ -86,8 +76,6 @@ const AggElectricity = () => {
         options={chart.options}
         series={chart.series}
         type="bar"
-        height={250}
-        width="100%"
         responsive={chart.responsive}
       />
     </div>

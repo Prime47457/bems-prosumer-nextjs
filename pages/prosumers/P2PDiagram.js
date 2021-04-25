@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import Navbar from "../../components/Navbar";
-import { Paper } from "@material-ui/core";
+import { Grid, Paper } from "@material-ui/core";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
@@ -36,11 +36,16 @@ export default function P2PDiagram() {
         <title>P2P Diagram</title>
       </Head>
       <Navbar />
-      <div className="chart-container">
-        <Paper elevation={3}>
-          <P2PChord />
-        </Paper>
-      </div>
+
+      <Grid container>
+        <Grid item xs={10} className="total-prosumer-body">
+          <div className="producer-information-right">
+            <Paper elevation={3}>
+              <P2PChord />
+            </Paper>
+          </div>
+        </Grid>
+      </Grid>
     </div>
   );
 }

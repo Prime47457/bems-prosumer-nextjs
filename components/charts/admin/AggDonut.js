@@ -4,6 +4,19 @@ import Chart from "react-apexcharts";
 const AggDonut = () => {
   const [chart, setChart] = useState({
     series: [],
+    responsive: [
+      {
+        breakpoint: 1000,
+        options: {
+          chart: {
+            width: 200,
+          },
+          legend: {
+            position: "bottom",
+          },
+        },
+      },
+    ],
     options: {
       labels: [],
       chart: {
@@ -21,7 +34,7 @@ const AggDonut = () => {
                 label: "Total",
                 formatter: function (w) {
                   return w.globals.seriesTotals.reduce((a, b) => {
-                    return a + b;
+                    return Number(Math.round(a + b + "e2") + "e-2");
                   }, 0);
                 },
               },
@@ -32,7 +45,7 @@ const AggDonut = () => {
         },
       },
       dataLabels: {
-        enabled: true,
+        enabled: false,
         formatter: function (val) {
           return Number(Math.round(val + "e2") + "e-2") + "%";
         },
@@ -48,19 +61,6 @@ const AggDonut = () => {
       title: {
         text: "Daily total Load of each floor",
       },
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200,
-            },
-            legend: {
-              position: "bottom",
-            },
-          },
-        },
-      ],
     },
   });
 
@@ -70,7 +70,7 @@ const AggDonut = () => {
         options={chart.options}
         series={chart.series}
         type="donut"
-        width={380}
+        responsive={chart.responsive}
       />
     </div>
   );
