@@ -10,6 +10,7 @@ import historicalPrice from "../../data/historical/historicalPrice";
 import updateChart from "../../data/current/updateChart";
 import updateBuyPriceQuan, {
   updateSellPriceQuan,
+  updateBarRankingPrice,
 } from "../../data/current/updatePriceQuan";
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -46,6 +47,13 @@ const Buyprice = dynamic(
 const Sellprice = dynamic(
   () => {
     return import("../../components/charts/prosumer/Sellprice");
+  },
+  { ssr: false }
+);
+
+const BarRanking = dynamic(
+  () => {
+    return import("../../components/charts/prosumer/BarRanking");
   },
   { ssr: false }
 );
@@ -170,6 +178,10 @@ export default function Prosumer() {
     }
   }, [selectedSellDate]);
 
+  useEffect(() => {
+    updateBarRankingPrice(user.uid);
+  });
+
   return (
     <div className="grid-page">
       <Head>
@@ -229,6 +241,14 @@ export default function Prosumer() {
                 />
               </div>
             </div>
+            <div
+              style={{
+                marginTop: "40px",
+              }}
+            />
+            <Paper>
+              <BarRanking />
+            </Paper>
           </div>
         </Grid>
 

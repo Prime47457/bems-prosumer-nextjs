@@ -9,7 +9,7 @@ import { historicalAdminData } from "../../data/historical/historicalData";
 import { historicalAdminPriceQuan } from "../../data/historical/historicalPrice";
 import {
   updateAdminChart,
-  updateAdminRadialChart,
+  updateAdminDonutChart,
 } from "../../data/current/updateChart";
 import { updateAggPriceQuan } from "../../data/current/updatePriceQuan";
 
@@ -105,7 +105,7 @@ export default function AdminProsumer() {
   }, [selectedPriceDate]);
 
   useEffect(() => {
-    updateAdminRadialChart(urlArray);
+    updateAdminDonutChart(urlArray);
   }, []);
 
   return (

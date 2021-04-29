@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import Head from "next/head";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_APP_FIREBASE_KEY,
@@ -36,6 +37,9 @@ export default function Grid() {
   }, []);
   return (
     <div className="grid-page">
+      <Head>
+        <title>Grid Information</title>
+      </Head>
       <Navbar />
       <h4 className="name-surname">
         <AccountCircleIcon />

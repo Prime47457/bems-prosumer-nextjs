@@ -35,77 +35,20 @@ const chartConfigs = {
   dataFormat: "json", // Data type
   dataSource: {
     // Chart Configuration
-    chart: {
-      caption: "P2P Electricity Market Trade",
-      subcaption: "Latest hour",
-      theme: "fusion",
-      numbersuffix: " baht",
-      nodewidth: 0,
-      nodelinkpadding: 3,
-      linkcolor: "blend",
-      linkcurvature: 0.6,
-      linkalpha: 40,
-      nodeSpacing: 15,
-    },
-    nodes: [
-      {
-        label: "Floor 1",
-      },
-      {
-        label: "Floor 2",
-      },
-      {
-        label: "Floor 3",
-      },
-      {
-        label: "Floor 6",
-      },
-      {
-        label: "Floor 7",
-      },
-    ],
-    links: [
-      {
-        from: "Floor 1",
-        to: "Floor 3",
-        value: 3.23,
-      },
-      {
-        from: "Floor 7",
-        to: "Floor 3",
-        value: 3.23,
-      },
-      {
-        from: "Floor 1",
-        to: "Floor 7",
-        value: 3.23,
-      },
-      {
-        from: "Floor 3",
-        to: "Floor 1",
-        value: 3.23,
-      },
-      {
-        from: "Floor 3",
-        to: "Floor 3",
-        value: 2.89,
-      },
-      {
-        from: "Floor 6",
-        to: "Floor 2",
-        value: 3.67,
-      },
-      {
-        from: "Floor 2",
-        to: "Floor 3",
-        value: 3.11,
-      },
-      {
-        from: "Floor 7",
-        to: "Floor 6",
-        value: 2.71,
-      },
-    ],
+    // chart: {
+    //   caption: "P2P Electricity Market Trade",
+    //   subcaption: "Latest hour",
+    //   theme: "fusion",
+    //   numbersuffix: " baht",
+    //   nodewidth: 0,
+    //   nodelinkpadding: 3,
+    //   linkcolor: "blend",
+    //   linkcurvature: 0.6,
+    //   linkalpha: 40,
+    //   nodeSpacing: 15,
+    // },
+    // nodes: [],
+    // links: [],
   },
 };
 
@@ -115,7 +58,8 @@ export default function P2PChord() {
     const date = new Date()
       .toLocaleString("en-CA", { timeZone: "Asia/Bangkok" })
       .substring(0, 10);
-    const dateHour = new Date().setMinutes(0, 0, 0);
+    // dont forget to change
+    const dateHour = new Date().setHours(13, 0, 0, 0);
     db.ref("Market/admin")
       .child(date)
       .child(dateHour)
@@ -163,11 +107,14 @@ export default function P2PChord() {
                     caption: "P2P Electricity Market Trade",
                     subcaption: "Latest hour",
                     theme: "fusion",
+                    palettecolors:
+                      "#404a70, #e1bd50, #243aa1, #fc7303, #03ab7b, #ba0e02, #7a2f8f, ",
                     numbersuffix: " baht",
                     nodewidth: 0,
+                    showlegend: 0,
                     nodelinkpadding: 3,
                     linkcolor: "blend",
-                    linkcurvature: 0.6,
+                    linkcurvature: 0.2,
                     linkalpha: 40,
                     nodeSpacing: 15,
                   },

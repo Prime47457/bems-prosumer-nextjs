@@ -64,7 +64,7 @@ export async function updateAdminChart(urlArray) {
   ApexCharts.exec("aggload", "updateSeries", [{ data: transformedData }]);
 }
 
-export async function updateAdminRadialChart(urlArray) {
+export async function updateAdminDonutChart(urlArray) {
   const data = [];
   const label = [];
   for (const url of urlArray) {

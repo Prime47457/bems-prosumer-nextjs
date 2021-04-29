@@ -36,7 +36,7 @@
 }
 
 .name-surname {
-  align-items: center;
+  align-items: right;
   flex-direction: row;
 }
 
@@ -46,8 +46,9 @@
 }
 
 .grid-page {
-  margin-left: 80px;
-  background-color: #fcfcfc;
+  margin-left: 70px;
+  margin-top: 0px;
+  background-color: #eee;
 }
 
 .grid-info {
