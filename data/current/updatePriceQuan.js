@@ -122,6 +122,72 @@ export function updateSellPriceQuan(uid) {
     });
 }
 
+export function updateBarRankingPrice(uid) {
+  const date = new Date()
+    .toLocaleString("en-CA", { timeZone: "Asia/Bangkok" })
+    .substring(0, 10);
+  db.ref("Prosumer")
+    .child(uid)
+    .child(date)
+    .get()
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const sellPriceData = Object.entries(snapshot.val())
+          .map(([key, response]) => {
+            const sellPrice = response.sold.reduce(
+              (acc, cur) => {
+                acc.sum += cur.price * cur.quantity;
+                acc.quantity += cur.quantity;
+                return acc;
+              },
+              { sum: 0, quantity: 0 }
+            );
+            const avgSellPrice = Number(
+              Math.round(sellPrice.sum / sellPrice.quantity + "e2") + "e-2"
+            );
+            return { x: parseInt(key), y: avgSellPrice };
+          })
+          .sort((a, b) => {
+            parseFloat(a.y) - parseFloat(b.y);
+          });
+
+        const buyPriceData = Object.entries(snapshot.val())
+          .map(([key, response]) => {
+            const buyPrice = response.bought.reduce(
+              (acc, cur) => {
+                acc.sum += cur.price * cur.quantity;
+                acc.quantity += cur.quantity;
+                return acc;
+              },
+              { sum: 0, quantity: 0 }
+            );
+            const avgBuyPrice = Number(
+              Math.round(buyPrice.sum / buyPrice.quantity + "e2") + "e-2"
+            );
+            return { x: parseInt(key), y: avgBuyPrice };
+          })
+          .sort((a, b) => {
+            parseFloat(a.y) - parseFloat(b.y);
+          });
+
+        ApexCharts.exec("barranking", "updateOptions", {
+          series: [
+            {
+              name: "Avg price bought(baht)",
+              data: buyPriceData,
+            },
+            // {
+            //   name: "Avg price sold(kW)",
+            //   data: sellPriceData,
+            // },
+          ],
+        });
+      } else {
+        console.log("No data found");
+      }
+    });
+}
+
 export function updateAggPriceQuan() {
   const date = new Date()
     .toLocaleString("en-CA", { timeZone: "Asia/Bangkok" })
@@ -134,6 +200,7 @@ export function updateAggPriceQuan() {
         const avgPrices = Object.entries(snapshot.val()).map(
           ([key, response]) => {
             let marketPrice = 0;
+            // change back laew
             if (response.clearing_method === "unikda") {
               const priceQuantity = response.results
                 .filter((result) => {

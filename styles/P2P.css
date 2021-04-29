@@ -1,0 +1,47 @@
+.p2p-information {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  /* border: 1px solid #fff; */
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+  padding-left: 40px;
+  padding-right: 40px;
+  margin-top: 40px;
+  padding-top: 10px;
+}
+
+.p2p-information-left {
+  margin-left: 40px;
+  margin-right: 50px;
+  margin-top: 80px;
+}
+
+.p2p-information-right {
+  margin-top: 40px;
+  margin-right: 50px;
+  margin-left: 40px;
+}
+
+@media screen and (max-width: 1100px) {
+  .p2p {
+    display: block !important;
+  }
+
+  .p2p-body {
+    max-width: 100% !important;
+  }
+
+  .p2p-information-right {
+    margin-left: 40px;
+    margin-top: 40px;
+    margin-right: 20px;
+  }
+
+  .p2p-information-left {
+    margin-top: 40px;
+    margin-left: 40px;
+    margin-right: 20px;
+  }
+}

@@ -9,7 +9,7 @@ import { historicalAdminData } from "../../data/historical/historicalData";
 import { historicalAdminPriceQuan } from "../../data/historical/historicalPrice";
 import {
   updateAdminChart,
-  updateAdminRadialChart,
+  updateAdminDonutChart,
 } from "../../data/current/updateChart";
 import { updateAggPriceQuan } from "../../data/current/updatePriceQuan";
 
@@ -105,49 +105,132 @@ export default function AdminProsumer() {
   }, [selectedPriceDate]);
 
   useEffect(() => {
-    updateAdminRadialChart(urlArray);
+    updateAdminDonutChart(urlArray);
   }, []);
 
   return (
     <div className="grid-page">
       <Head>Total Prosumer Information</Head>
       <Navbar />
-      <div className="chart-container">
-        <Paper elevation={3}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DatePicker
-              disableToolbar
-              variant="inline"
-              format="yyyy-MM-dd"
-              margin="normal"
-              id="load-chart"
-              value={selectedLoadDate}
-              onChange={handleDateLoadChange}
-              autoOk={true}
+      <Grid container spacing={3} className="total-prosumer">
+        <Grid item xs={6} className="total-prosumer-body">
+          <div className="producer-information-left">
+            <h2 className="information">Total Information</h2>
+            <Grid item>
+              <div className="time-interval">
+                <div className="time-information">
+                  <h5 className="time-left">Time</h5>
+                  <hr className="border-color" />
+                  <p className="time-left">11:30</p>
+                </div>
+
+                <div className="interval-information">
+                  <h5 className="interval-right">Interval</h5>
+                  <hr className="border-color" />
+                  <p className="interval-right">1 Hour</p>
+                </div>
+              </div>
+            </Grid>
+            <Grid item>
+              <div className="sale-information">
+                <div className="sale">
+                  <p>Total Load</p>
+                  <h4>100</h4>
+                </div>
+
+                <hr className="border-color" />
+
+                <div className="sale">
+                  <p>Sale Count</p>
+                  <h4>8</h4>
+                </div>
+
+                <hr className="border-color" />
+
+                <div className="sale">
+                  <p>Sale Amount</p>
+                  <h4>1.5 MW</h4>
+                </div>
+              </div>
+            </Grid>
+            <Grid item>
+              <div className="sale-information">
+                <div className="sale">
+                  <p>Purchase Load</p>
+                  <h4>100</h4>
+                </div>
+
+                <hr className="border-color" />
+
+                <div className="sale">
+                  <p>Number of Producer</p>
+                  <h4>8</h4>
+                </div>
+
+                <hr className="border-color" />
+
+                <div className="sale">
+                  <p>Number of Customer</p>
+                  <h4>1.5 MW</h4>
+                </div>
+              </div>
+            </Grid>
+            <div
+              style={{
+                marginTop: "40px",
+              }}
             />
-          </MuiPickersUtilsProvider>
-          <AggElectricity />
-        </Paper>
-        <Paper elevation={3}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DatePicker
-              disableToolbar
-              variant="inline"
-              format="yyyy-MM-dd"
-              margin="normal"
-              id="price-chart"
-              value={selectedPriceDate}
-              onChange={handleDatePriceChange}
-              autoOk={true}
-            />
-          </MuiPickersUtilsProvider>
-          <AggMarket />
-          <AggQuantity />
-        </Paper>
-        <Paper elevation={3}>
-          <AggDonut />
-        </Paper>
-      </div>
+            <Paper>
+              <AggDonut />
+            </Paper>
+          </div>
+        </Grid>
+
+        <Grid item xs={6} className="total-prosumer-body">
+          <div className="producer-information-right">
+            <div className="chart-container">
+              <Paper elevation={3}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <DatePicker
+                    disableToolbar
+                    variant="inline"
+                    format="yyyy-MM-dd"
+                    margin="normal"
+                    id="load-chart"
+                    value={selectedLoadDate}
+                    onChange={handleDateLoadChange}
+                    autoOk={true}
+                  />
+                </MuiPickersUtilsProvider>
+                <AggElectricity />
+              </Paper>
+
+              <div
+                style={{
+                  marginTop: "40px",
+                }}
+              />
+
+              <Paper elevation={3}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <DatePicker
+                    disableToolbar
+                    variant="inline"
+                    format="yyyy-MM-dd"
+                    margin="normal"
+                    id="price-chart"
+                    value={selectedPriceDate}
+                    onChange={handleDatePriceChange}
+                    autoOk={true}
+                  />
+                </MuiPickersUtilsProvider>
+                <AggMarket />
+                <AggQuantity />
+              </Paper>
+            </div>
+          </div>
+        </Grid>
+      </Grid>
     </div>
   );
 }

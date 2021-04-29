@@ -1,20 +1,40 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
 
-const AggElectricity = () => {
+const Barranking = () => {
   const [chart, setChart] = useState({
     series: [
       {
-        name: "Load",
+        name: "Avg price bought(baht)",
         data: [],
+      },
+      {
+        name: "Avg price sold(kW)",
+        data: [],
+      },
+    ],
+    responsive: [
+      {
+        breakpoint: 1000,
+        options: {
+          legend: {
+            position: "bottom",
+          },
+        },
       },
     ],
     options: {
       chart: {
-        id: "aggload",
-        height: 250,
+        id: "barranking",
+        height: 400,
         width: "100%",
-        type: "column",
+        type: "bar",
+        plotOptions: {
+          bar: {
+            borderRadius: 4,
+            horizontal: true,
+          },
+        },
         toolbar: {
           show: true,
           tools: {
@@ -27,27 +47,16 @@ const AggElectricity = () => {
             reset: true,
           },
         },
-        zoom: {
-          enabled: true,
-          type: "x",
-          autoScaleYaxis: true,
-          zoomedArea: {
-            fill: {
-              color: "#90CAF9",
-              opacity: 0.4,
-            },
-          },
-        },
       },
       title: {
-        text: "Aggregated Electricity Load",
+        text: "Price Ranking of every round",
       },
       dataLabels: {
-        enabled: true,
-        enabledOnSeries: [1],
+        enabled: false,
+        enabledOnSeries: [0],
       },
       noData: { text: "Loading..." },
-      colors: ["#243aa1"],
+      colors: ["#e1bd50", "#243aa1"],
       xaxis: {
         type: "datetime",
         labels: {
@@ -63,7 +72,7 @@ const AggElectricity = () => {
       yaxis: [
         {
           title: {
-            text: "Power(kW)",
+            text: "Price(Baht)",
           },
         },
       ],
@@ -76,10 +85,12 @@ const AggElectricity = () => {
         options={chart.options}
         series={chart.series}
         type="bar"
+        height={250}
+        width="100%"
         responsive={chart.responsive}
       />
     </div>
   );
 };
 
-export default AggElectricity;
+export default Barranking;
