@@ -51,13 +51,6 @@ const Sellprice = dynamic(
   { ssr: false }
 );
 
-const BarRanking = dynamic(
-  () => {
-    return import("../../components/charts/prosumer/BarRanking");
-  },
-  { ssr: false }
-);
-
 export default function Prosumer() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedBuyDate, setSelectedBuyDate] = useState(new Date());
@@ -178,10 +171,6 @@ export default function Prosumer() {
     }
   }, [selectedSellDate]);
 
-  useEffect(() => {
-    updateBarRankingPrice(user.uid);
-  });
-
   return (
     <div className="grid-page">
       <Head>
@@ -241,14 +230,6 @@ export default function Prosumer() {
                 />
               </div>
             </div>
-            <div
-              style={{
-                marginTop: "40px",
-              }}
-            />
-            <Paper>
-              <BarRanking />
-            </Paper>
           </div>
         </Grid>
 
