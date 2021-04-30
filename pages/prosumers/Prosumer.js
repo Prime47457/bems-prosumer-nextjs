@@ -54,7 +54,7 @@ const Sellprice = dynamic(
 
 const Barranking = dynamic(
   () => {
-    return import("../../components/charts/prosumer/BarRanking");
+    return import("../../components/charts/prosumer/Barranking");
   },
   { ssr: false }
 );
