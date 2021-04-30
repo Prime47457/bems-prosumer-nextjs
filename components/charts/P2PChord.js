@@ -105,7 +105,8 @@ export default function P2PChord() {
                 dataSource: {
                   chart: {
                     caption: "P2P Electricity Market Trade",
-                    subcaption: "Latest hour",
+                    subcaption:
+                      "The movement of eletricity from seller to buyer with transaction price of the latest round",
                     theme: "fusion",
                     palettecolors:
                       "#404a70, #e1bd50, #243aa1, #fc7303, #03ab7b, #ba0e02, #7a2f8f, ",

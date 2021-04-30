@@ -123,7 +123,7 @@ export function updateSellPriceQuan(uid) {
 }
 
 export function updateBarRankingPrice(uid) {
-  const date = new Date(1619704800000)
+  const date = new Date()
     .toLocaleString("en-CA", { timeZone: "Asia/Bangkok" })
     .substring(0, 10);
   db.ref("Prosumer")
@@ -134,9 +134,7 @@ export function updateBarRankingPrice(uid) {
       if (snapshot.exists()) {
         const priceData = Object.entries(snapshot.val())
           .filter(([key, response]) => {
-            return (
-              key === new Date(1619704800000).setHours(10, 0, 0, 0).toString()
-            );
+            return key === new Date().setMinutes(0, 0, 0).toString();
           })
           .map(([key, response]) => {
             const sellPrice = response.sold.reduce(
@@ -184,7 +182,7 @@ export function updateAggPriceQuan() {
           ([key, response]) => {
             let marketPrice = 0;
             // change back laew
-            if (response.clearing_method === "unikda") {
+            if (response.clearing_method === "diskda") {
               const priceQuantity = response.results
                 .filter((result) => {
                   return (
@@ -203,7 +201,7 @@ export function updateAggPriceQuan() {
                 Math.round(priceQuantity.sum / priceQuantity.quantity + "e2") +
                   "e-2"
               );
-            } else if (response.clearing_method === "diskda") {
+            } else if (response.clearing_method === "unikda") {
               marketPrice = Number(
                 Math.round(response.results[0].price + "e2") + "e-2"
               );

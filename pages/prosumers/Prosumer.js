@@ -15,6 +15,7 @@ import updateBuyPriceQuan, {
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import { useAuth } from "../../assets/auth";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_APP_FIREBASE_KEY,
@@ -63,7 +64,8 @@ export default function Prosumer() {
   const [selectedBuyDate, setSelectedBuyDate] = useState(new Date());
   const [selectedSellDate, setSelectedSellDate] = useState(new Date());
 
-  const user = firebase.auth().currentUser;
+  const auth = useAuth();
+  const user = auth.userId;
 
   const [currency, setCurrency] = React.useState("EUR");
   const currencies = [
@@ -90,7 +92,7 @@ export default function Prosumer() {
     firebase
       .firestore()
       .collection("users")
-      .doc(user.uid)
+      .doc(user)
       .get()
       .then((doc) => {
         historicalData(
@@ -110,7 +112,7 @@ export default function Prosumer() {
       date
         .toLocaleString("en-CA", { timeZone: "Asia/Bangkok" })
         .substring(0, 10),
-      user.uid,
+      user,
       "bought"
     );
   };
@@ -121,20 +123,20 @@ export default function Prosumer() {
       date
         .toLocaleString("en-CA", { timeZone: "Asia/Bangkok" })
         .substring(0, 10),
-      user.uid,
+      user,
       "sold"
     );
   };
 
   useEffect(() => {
     if (
-      user !== null &&
+      user &&
       selectedDate.setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0)
     ) {
       firebase
         .firestore()
         .collection("users")
-        .doc(user.uid)
+        .doc(user)
         .get()
         .then((doc) => {
           const url = doc.data().link;
@@ -147,28 +149,28 @@ export default function Prosumer() {
         setSelectedDate(new Date());
       }
     }
-  }, [selectedDate]);
+  }, [selectedDate, user]);
 
   useEffect(() => {
     if (
-      user !== null &&
+      user &&
       selectedBuyDate.setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0)
     ) {
-      updateBuyPriceQuan(user.uid);
+      updateBuyPriceQuan(user);
       if (
         selectedBuyDate.setHours(0, 0, 0, 0) !== new Date().setHours(0, 0, 0, 0)
       ) {
         setSelectedBuyDate(new Date());
       }
     }
-  }, [selectedBuyDate]);
+  }, [selectedBuyDate, user]);
 
   useEffect(() => {
     if (
-      user !== null &&
+      user &&
       selectedSellDate.setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0)
     ) {
-      updateSellPriceQuan(user.uid);
+      updateSellPriceQuan(user);
       if (
         selectedSellDate.setHours(0, 0, 0, 0) !==
         new Date().setHours(0, 0, 0, 0)
@@ -176,11 +178,13 @@ export default function Prosumer() {
         setSelectedSellDate(new Date());
       }
     }
-  }, [selectedSellDate]);
+  }, [selectedSellDate, user]);
 
   useEffect(() => {
-    updateBarRankingPrice(user.uid);
-  });
+    if (user) {
+      updateBarRankingPrice(user);
+    }
+  }, [user]);
 
   return (
     <div className="grid-page">

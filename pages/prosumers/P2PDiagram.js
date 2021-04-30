@@ -97,14 +97,14 @@ export default function P2PDiagram() {
       <Navbar />
 
       <Grid container spacing={3} className="total-prosumer">
-        <Grid item xs={9} className="total-prosumer-body">
+        <Grid item xs={8} className="total-prosumer-body">
           <div className="producer-information-left">
-            <Paper elevation={3}>
+            <Paper>
               <P2PChord />
             </Paper>
           </div>
         </Grid>
-        <Grid item xs={3} className="total-prosumer-body">
+        <Grid item xs={4} className="total-prosumer-body">
           <div className="producer-information-right">
             <div className="prosumer-info-box1">
               <hr className="border-color" />
@@ -112,7 +112,8 @@ export default function P2PDiagram() {
               <hr className="border-color building-line" />
               <div className="pv-load">
                 <p className="load">
-                  <strong>Clearing Method: </strong> {clearMeth}
+                  <strong>Clearing Method: </strong>
+                  {clearMeth}
                 </p>
               </div>
               <div className="pv-load">
@@ -140,6 +141,11 @@ export default function P2PDiagram() {
                   <strong>Percent Sold: </strong> {percentSold}
                 </p>
               </div>
+              <div
+                style={{
+                  marginTop: "90px",
+                }}
+              />
             </div>
           </div>
         </Grid>
