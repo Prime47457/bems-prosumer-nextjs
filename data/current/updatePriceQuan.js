@@ -123,7 +123,7 @@ export function updateSellPriceQuan(uid) {
 }
 
 export function updateBarRankingPrice(uid) {
-  const date = new Date()
+  const date = new Date(1619704800000)
     .toLocaleString("en-CA", { timeZone: "Asia/Bangkok" })
     .substring(0, 10);
   db.ref("Prosumer")
@@ -132,7 +132,12 @@ export function updateBarRankingPrice(uid) {
     .get()
     .then((snapshot) => {
       if (snapshot.exists()) {
-        const sellPriceData = Object.entries(snapshot.val())
+        const priceData = Object.entries(snapshot.val())
+          .filter(([key, response]) => {
+            return (
+              key === new Date(1619704800000).setHours(10, 0, 0, 0).toString()
+            );
+          })
           .map(([key, response]) => {
             const sellPrice = response.sold.reduce(
               (acc, cur) => {
@@ -145,14 +150,6 @@ export function updateBarRankingPrice(uid) {
             const avgSellPrice = Number(
               Math.round(sellPrice.sum / sellPrice.quantity + "e2") + "e-2"
             );
-            return { x: parseInt(key), y: avgSellPrice };
-          })
-          .sort((a, b) => {
-            parseFloat(a.y) - parseFloat(b.y);
-          });
-
-        const buyPriceData = Object.entries(snapshot.val())
-          .map(([key, response]) => {
             const buyPrice = response.bought.reduce(
               (acc, cur) => {
                 acc.sum += cur.price * cur.quantity;
@@ -164,24 +161,10 @@ export function updateBarRankingPrice(uid) {
             const avgBuyPrice = Number(
               Math.round(buyPrice.sum / buyPrice.quantity + "e2") + "e-2"
             );
-            return { x: parseInt(key), y: avgBuyPrice };
+            return [avgBuyPrice, avgSellPrice];
           })
-          .sort((a, b) => {
-            parseFloat(a.y) - parseFloat(b.y);
-          });
-
-        ApexCharts.exec("barranking", "updateOptions", {
-          series: [
-            {
-              name: "Avg price bought(baht)",
-              data: buyPriceData,
-            },
-            // {
-            //   name: "Avg price sold(kW)",
-            //   data: sellPriceData,
-            // },
-          ],
-        });
+          .flat();
+        ApexCharts.exec("barranking", "updateSeries", [{ data: priceData }]);
       } else {
         console.log("No data found");
       }

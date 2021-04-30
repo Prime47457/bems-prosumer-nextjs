@@ -40,11 +40,13 @@ export default function Grid() {
       <Head>
         <title>Grid Information</title>
       </Head>
+      <div className="name-surname">
+        <h4>
+          <AccountCircleIcon />
+          {name}
+        </h4>
+      </div>
       <Navbar />
-      <h4 className="name-surname">
-        <AccountCircleIcon />
-        {name}
-      </h4>
 
       <div className="grid-info">
         <GridInfo />

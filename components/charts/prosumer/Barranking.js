@@ -5,11 +5,7 @@ const Barranking = () => {
   const [chart, setChart] = useState({
     series: [
       {
-        name: "Avg price bought(baht)",
-        data: [],
-      },
-      {
-        name: "Avg price sold(kW)",
+        name: "Price of this round (baht)",
         data: [],
       },
     ],
@@ -29,23 +25,22 @@ const Barranking = () => {
         height: 400,
         width: "100%",
         type: "bar",
-        plotOptions: {
-          bar: {
-            borderRadius: 4,
-            horizontal: true,
-          },
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true,
         },
-        toolbar: {
-          show: true,
-          tools: {
-            download: false,
-            selection: false,
-            zoom: true,
-            zoomin: false,
-            zoomout: false,
-            pan: false,
-            reset: true,
-          },
+      },
+      toolbar: {
+        show: true,
+        tools: {
+          download: false,
+          selection: false,
+          zoom: true,
+          zoomin: false,
+          zoomout: false,
+          pan: false,
+          reset: true,
         },
       },
       title: {
@@ -56,26 +51,18 @@ const Barranking = () => {
         enabledOnSeries: [0],
       },
       noData: { text: "Loading..." },
-      colors: ["#e1bd50", "#243aa1"],
-      xaxis: {
-        type: "datetime",
-        labels: {
-          datetimeUTC: false,
-          datetimeFormatter: {
-            year: "yyyy",
-            month: "MMM 'yy",
-            day: "dd MMM",
-            hour: "HH:mm",
-          },
-        },
-      },
-      yaxis: [
-        {
-          title: {
-            text: "Price(Baht)",
-          },
+      colors: [
+        function ({ value, seriesIndex, w }) {
+          if (value > 4.12) {
+            return "#ba0e02";
+          } else {
+            return "#e1bd50";
+          }
         },
       ],
+      xaxis: {
+        categories: ["Buying Price", "Selling Price"],
+      },
     },
   });
 

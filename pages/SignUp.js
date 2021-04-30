@@ -12,6 +12,7 @@ import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { useAuth } from "../assets/auth";
 import * as Yup from "yup";
+import Head from "next/head";
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string().max(50, "Too Long!").required("Required"),
@@ -77,6 +78,9 @@ export default function LoginProsumer() {
 
   return (
     <div className="signup">
+      <Head>
+        <title>Signup Page</title>
+      </Head>
       <form noValidate autoComplete="off" onSubmit={formik.handleSubmit}>
         <div className="signup-signup">
           <h1>Sign Up</h1>

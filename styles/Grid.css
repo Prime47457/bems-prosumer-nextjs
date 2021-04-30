@@ -36,8 +36,8 @@
 }
 
 .name-surname {
-  align-items: right;
-  flex-direction: row;
+  align-items: right !important;
+  flex-direction: row im !important;
 }
 
 .MuiSvgIcon-root {
@@ -48,6 +48,7 @@
 .grid-page {
   margin-left: 70px;
   margin-top: 0px;
+  height: auto;
   background-color: #eee;
 }
 

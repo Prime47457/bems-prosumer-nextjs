@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useAuth } from "../assets/auth";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
+import Head from "next/head";
 
 export default function Login() {
   const auth = useAuth();
@@ -54,6 +55,9 @@ export default function Login() {
 
   return (
     <div className="login">
+      <Head>
+        <title>Login Page</title>
+      </Head>
       <h1 className="logo">
         CU
         <span className="logo-bems">{" BEMS"}</span>
