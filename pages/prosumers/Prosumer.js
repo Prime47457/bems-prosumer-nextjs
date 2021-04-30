@@ -17,20 +17,6 @@ import "firebase/auth";
 import "firebase/firestore";
 import { useAuth } from "../../assets/auth";
 
-const firebaseConfig = {
-  apiKey: process.env.NEXT_APP_FIREBASE_KEY,
-  authDomain: process.env.NEXT_APP_FIREBASE_DOMAIN,
-  projectId: process.env.NEXT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_APP_FIREBASE_SENDER_ID,
-  appId: "1:1083389397572:web:1470b861f0c2209e9b8a11",
-  measurementId: "G-JQXCS7B1JK",
-};
-
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
-
 const Electricity = dynamic(
   () => {
     return import("../../components/charts/prosumer/Electricity");
@@ -63,29 +49,12 @@ export default function Prosumer() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedBuyDate, setSelectedBuyDate] = useState(new Date());
   const [selectedSellDate, setSelectedSellDate] = useState(new Date());
+  const [name, setName] = useState("");
+  const [buidling, setBuilding] = useState("");
+  const [load, setLoad] = useState(0);
 
   const auth = useAuth();
   const user = auth.userId;
-
-  const [currency, setCurrency] = React.useState("EUR");
-  const currencies = [
-    {
-      value: "USD",
-      label: "$",
-    },
-    {
-      value: "EUR",
-      label: "< 19.00 >",
-    },
-    {
-      value: "BTC",
-      label: "฿",
-    },
-    {
-      value: "JPY",
-      label: "¥",
-    },
-  ];
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -139,9 +108,14 @@ export default function Prosumer() {
         .doc(user)
         .get()
         .then((doc) => {
-          const url = doc.data().link;
-          const floor = "Floor " + doc.data().floor;
-          updateChart(url, floor);
+          const data = doc.data();
+          const url = data.link;
+          const floor = "Floor " + data.floor;
+          updateChart(url, floor).then((res) => {
+            setName(data.name + " " + data.surname);
+            setBuilding(data.building + " Floor " + data.floor);
+            setLoad(res.total);
+          });
         });
       if (
         selectedDate.setHours(0, 0, 0, 0) !== new Date().setHours(0, 0, 0, 0)
@@ -199,50 +173,13 @@ export default function Prosumer() {
             <h1>Prosumer Information</h1>
 
             <div className="prosumer-info-box1">
-              <p>Name: {"Rachata"}</p>
+              <p>Name: {name}</p>
               <hr className="border-color" />
-              <p className="building">Building: {"ENG 100"}</p>
+              <p className="building">Building: {buidling}</p>
               <hr className="border-color building-line" />
               <div className="pv-load">
-                <p className="load">Load: {"23.4"} MW</p>
-                <p>PV: {"27.3"} MW</p>
-              </div>
-            </div>
-
-            <div className="prosumer-info-box2">
-              <div className="prosumer-info-subbox2">
-                <p>Time: </p>
-                <TextField
-                  id="outlined-select-currency"
-                  select
-                  value={currency}
-                  // onChange={handleChange}
-                  variant="outlined"
-                >
-                  {currencies.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </div>
-
-              <div className="prosumer-info-subbox2">
-                <p>Price:</p>
-                <TextField
-                  id="outlined-basic"
-                  value="125.3 baht"
-                  variant="outlined"
-                />
-              </div>
-
-              <div className="prosumer-info-subbox2">
-                <p>Amount:</p>
-                <TextField
-                  id="outlined-basic"
-                  value="13 MW"
-                  variant="outlined"
-                />
+                <p className="load">Load: {load} kW</p>
+                <p>PV: {0} kW</p>
               </div>
             </div>
             <div

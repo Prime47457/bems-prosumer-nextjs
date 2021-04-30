@@ -117,43 +117,26 @@ export default function AdminProsumer() {
           <div className="producer-information-left">
             <h2 className="information">Total Information</h2>
             <Grid item>
-              <div className="time-interval">
-                <div className="time-information">
-                  <h5 className="time-left">Time</h5>
+              <Paper>
+                <div className="sale-header">
+                  <h4>Latest Trading Information </h4>
+                </div>
+                <div className="sale-information">
+                  <div className="sale">
+                    <p>Total Quantity Traded</p>
+                    <h4>24</h4>
+                  </div>
+
                   <hr className="border-color" />
-                  <p className="time-left">11:30</p>
-                </div>
 
-                <div className="interval-information">
-                  <h5 className="interval-right">Interval</h5>
-                  <hr className="border-color" />
-                  <p className="interval-right">1 Hour</p>
+                  <div className="sale">
+                    <p>Number of Participant</p>
+                    <h4>5</h4>
+                  </div>
                 </div>
-              </div>
+              </Paper>
             </Grid>
-            <Grid item>
-              <div className="sale-information">
-                <div className="sale">
-                  <p>Total Load</p>
-                  <h4>100</h4>
-                </div>
-
-                <hr className="border-color" />
-
-                <div className="sale">
-                  <p>Sale Count</p>
-                  <h4>8</h4>
-                </div>
-
-                <hr className="border-color" />
-
-                <div className="sale">
-                  <p>Sale Amount</p>
-                  <h4>1.5 MW</h4>
-                </div>
-              </div>
-            </Grid>
-            <Grid item>
+            {/* <Grid item>
               <div className="sale-information">
                 <div className="sale">
                   <p>Purchase Load</p>
@@ -174,7 +157,7 @@ export default function AdminProsumer() {
                   <h4>1.5 MW</h4>
                 </div>
               </div>
-            </Grid>
+            </Grid> */}
             <div
               style={{
                 marginTop: "40px",

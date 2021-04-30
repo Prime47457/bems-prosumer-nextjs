@@ -4,7 +4,7 @@ import map from "lodash/map";
 
 export default function updateChart(url, floor) {
   let chartData = [];
-  axios
+  const load = axios
     .get(url)
     .then((res) => {
       for (const element of res.data.graph) {
@@ -24,16 +24,21 @@ export default function updateChart(url, floor) {
           };
         }
       );
+      const sumData = transformedData.reduce((acc, cur) => {
+        return acc + cur.y;
+      }, 0);
       ApexCharts.exec("load", "updateSeries", [{ data: transformedData }]);
       ApexCharts.exec("load", "updateOptions", {
         title: {
           text: "Electricity Load of " + floor,
         },
       });
+      return { total: sumData };
     })
     .catch((err) => {
       console.log(err);
     });
+  return load;
 }
 
 export async function updateAdminChart(urlArray) {
@@ -60,7 +65,6 @@ export async function updateAdminChart(urlArray) {
       };
     }
   );
-
   ApexCharts.exec("aggload", "updateSeries", [{ data: transformedData }]);
 }
 
