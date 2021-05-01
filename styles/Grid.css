@@ -60,9 +60,7 @@
 
 .grid-page {
   margin-left: 70px;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  height: 100vh;
+  height: auto;
   background-color: #eee;
 }
 

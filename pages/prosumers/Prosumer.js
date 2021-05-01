@@ -114,7 +114,7 @@ export default function Prosumer() {
           updateChart(url, floor).then((res) => {
             setName(data.name + " " + data.surname);
             setBuilding(data.building + " Floor " + data.floor);
-            setLoad(res.total);
+            setLoad(Number(Math.round(res.total + "e2") + "e-2"));
           });
         });
       if (
