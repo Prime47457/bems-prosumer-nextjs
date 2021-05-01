@@ -46,6 +46,7 @@ export default function Grid() {
       <div>
         <GridInfo />
       </div>
+      <div className="grid-bottom"></div>
     </div>
   );
 }

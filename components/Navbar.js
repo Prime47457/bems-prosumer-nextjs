@@ -51,7 +51,7 @@ export default function Navbar() {
         <SideNav.Nav>
           <NavItem eventKey="Grid" className="nav-item">
             <NavIcon className="nav-icon">
-              <HomeRoundedIcon />
+              <HomeRoundedIcon style={{ fontSize: "2em" }} />
             </NavIcon>
             <NavText>
               <div className="icon-text">Home</div>
@@ -60,7 +60,7 @@ export default function Navbar() {
 
           <NavItem eventKey="prosumers">
             <NavIcon>
-              <ListIcon />
+              <ListIcon style={{ fontSize: "2em" }} />
             </NavIcon>
             <NavText>
               <div className="icon-text">Menu</div>
@@ -82,41 +82,18 @@ export default function Navbar() {
             </NavItem>
           </NavItem>
 
-          <NavItem eventKey="contact">
+          <NavItem eventKey="Contact">
             <NavIcon>
-              <PermContactCalendarIcon />
+              <PermContactCalendarIcon style={{ fontSize: "2em" }} />
             </NavIcon>
             <NavText>
               <div className="icon-text">Contact Us</div>
             </NavText>
           </NavItem>
 
-          {/* Don't forget to put button */}
-          <NavItem eventKey="information">
-            <NavIcon>
-              <HelpRoundedIcon />
-            </NavIcon>
-            <NavText>
-              <div className="icon-text">Information</div>
-            </NavText>
-          </NavItem>
-
-          <NavItem
-            eventKey="reAdmin"
-            className="nav-item"
-            // style={{ display: "none" }}
-          >
-            <NavIcon>
-              <SupervisorAccountIcon />
-            </NavIcon>
-            <NavText>
-              <div className="icon-text">Register Admin</div>
-            </NavText>
-          </NavItem>
-
           <NavItem eventKey="logout">
             <NavIcon>
-              <ExitToAppRoundedIcon />
+              <ExitToAppRoundedIcon style={{ fontSize: "2em" }} />
             </NavIcon>
             <NavText>
               <div className="icon-text">Log Out</div>

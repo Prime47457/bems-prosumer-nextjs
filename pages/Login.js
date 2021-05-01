@@ -59,8 +59,8 @@ export default function Login() {
         <title>Login Page</title>
       </Head>
       <h1 className="logo">
-        CU
-        <span className="logo-bems">{" BEMS"}</span>
+        P2P
+        <span className="logo-bems">{" Visualization and Analytics"}</span>
       </h1>
 
       <form
