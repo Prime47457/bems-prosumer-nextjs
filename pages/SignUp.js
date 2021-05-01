@@ -188,15 +188,65 @@ export default function LoginProsumer() {
               <MenuItem value={1}>1</MenuItem>
               <MenuItem value={2}>2</MenuItem>
               <MenuItem value={3}>3</MenuItem>
-              <MenuItem value={4}>4</MenuItem>
-              <MenuItem value={5}>5</MenuItem>
+              {/* <MenuItem value={4}>4</MenuItem>
+              <MenuItem value={5}>5</MenuItem> */}
               <MenuItem value={6}>6</MenuItem>
               <MenuItem value={7}>7</MenuItem>
             </Select>
           </FormControl>
         </div>
         <div className="signup-textfield">
-          <TextField
+          <FormControl variant="outlined">
+            <InputLabel id="demo-simple-select-outlined-label">
+              Floor API Link
+            </InputLabel>
+            <Select
+              id="link"
+              name="link"
+              labelId="demo-simple-select-outlined-label"
+              onChange={formik.handleChange}
+              label="Floor API Link"
+              value={formik.values.link}
+              error={formik.touched.link && Boolean(formik.errors.link)}
+            >
+              <MenuItem
+                value={
+                  "https://www.bems.chula.ac.th/web/cham5-api/api/v1/building/3/building_usage/day/peak"
+                }
+              >
+                Floor 1 link
+              </MenuItem>
+              <MenuItem
+                value={
+                  "https://www.bems.chula.ac.th/web/cham5-api/api/v1/building/4/building_usage/day/peak"
+                }
+              >
+                Floor 2 link
+              </MenuItem>
+              <MenuItem
+                value={
+                  "https://www.bems.chula.ac.th/web/cham5-api/api/v1/building/5/building_usage/day/peak"
+                }
+              >
+                Floor 3 link
+              </MenuItem>
+              <MenuItem
+                value={
+                  "https://www.bems.chula.ac.th/web/cham5-api/api/v1/building/8/building_usage/day/peak"
+                }
+              >
+                Floor 6 link
+              </MenuItem>
+              <MenuItem
+                value={
+                  "https://www.bems.chula.ac.th/web/cham5-api/api/v1/building/9/building_usage/day/peak"
+                }
+              >
+                Floor 7 link
+              </MenuItem>
+            </Select>
+          </FormControl>
+          {/* <TextField
             id="link"
             name="link"
             className="left-textfield"
@@ -206,7 +256,7 @@ export default function LoginProsumer() {
             value={formik.values.link}
             error={formik.touched.link && Boolean(formik.errors.link)}
             helperText={formik.touched.link && formik.errors.link}
-          />
+          /> */}
         </div>
 
         <div className="signup-button">
