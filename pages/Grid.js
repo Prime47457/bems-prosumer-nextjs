@@ -7,7 +7,6 @@ import "firebase/auth";
 import "firebase/firestore";
 import Head from "next/head";
 import { useAuth } from "../assets/auth";
-import { useRadioGroup } from "@material-ui/core";
 
 export default function Grid() {
   const auth = useAuth();
@@ -31,15 +30,20 @@ export default function Grid() {
       <Head>
         <title>Grid Information</title>
       </Head>
-      <div className="name-surname">
-        <h4>
-          <AccountCircleIcon />
-          {name}
-        </h4>
-      </div>
       <Navbar />
-
       <div className="grid-info">
+        <div className="grid-name-block" />
+        <div className="name-surname">
+          <AccountCircleIcon />
+          <h4>{name}</h4>
+          <div
+            style={{
+              marginTop: "40px",
+            }}
+          />
+        </div>
+      </div>
+      <div>
         <GridInfo />
       </div>
     </div>

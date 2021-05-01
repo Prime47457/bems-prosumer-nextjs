@@ -6,8 +6,12 @@ const Barranking = () => {
     series: [
       {
         name: "Price of this round (baht)",
-        data: [],
+        data: [3, 4],
       },
+      // {
+      //   name: "Quantity of this round (kW)",
+      //   data: [4, 5],
+      // },
     ],
     responsive: [
       {
@@ -44,7 +48,7 @@ const Barranking = () => {
         },
       },
       title: {
-        text: "Price Ranking of every round",
+        text: "Price Ranking of the Latest Round",
       },
       dataLabels: {
         enabled: false,

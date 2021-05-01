@@ -1,7 +1,7 @@
 import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
 import ClickOutside from "react-click-outside";
 import HomeRoundedIcon from "@material-ui/icons/HomeRounded";
-import MenuRoundedIcon from "@material-ui/icons/MenuRounded";
+import ListIcon from "@material-ui/icons/List";
 import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar";
 import HelpRoundedIcon from "@material-ui/icons/HelpRounded";
 import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
@@ -60,7 +60,7 @@ export default function Navbar() {
 
           <NavItem eventKey="prosumers">
             <NavIcon>
-              <MenuRoundedIcon />
+              <ListIcon />
             </NavIcon>
             <NavText>
               <div className="icon-text">Menu</div>

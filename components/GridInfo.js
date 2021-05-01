@@ -287,27 +287,35 @@ export default function GridInfo() {
   }
 
   return (
-    <div className="grid-container">
-      <h2 className="information">Producer Information</h2>
+    <div className="grid-info">
+      <div className="grid-container">
+        <h2 className="information">Producer Information</h2>
 
-      <div className="textfield">
-        <div className="textfield-search">
-          <InputBase
-            placeholder="Search for building/ solar PV/Grid"
-            inputProps={{ "aria-label": "Search for building/ solar PV/Grid" }}
-          />
-          <IconButton className="search-icon" type="submit" aria-label="search">
-            <SearchIcon />
-          </IconButton>
+        <div className="textfield">
+          <div className="textfield-search">
+            <InputBase
+              placeholder="Search for building/ solar PV/Grid"
+              inputProps={{
+                "aria-label": "Search for building/ solar PV/Grid",
+              }}
+            />
+            <IconButton
+              className="search-icon"
+              type="submit"
+              aria-label="search"
+            >
+              <SearchIcon />
+            </IconButton>
+          </div>
         </div>
-      </div>
 
-      <div>
-        <Grid container spacing={1}>
-          <Grid container item xs={12} spacing={3}>
-            <FormSellRow />
+        <div>
+          <Grid container spacing={1}>
+            <Grid container item xs={12} spacing={3}>
+              <FormSellRow />
+            </Grid>
           </Grid>
-        </Grid>
+        </div>
       </div>
       <Dialog
         fullWidth={fullWidth}
@@ -329,26 +337,34 @@ export default function GridInfo() {
         <Electricity />
         <Sellprice />
       </Dialog>
-      <h2 className="information">Consumer Information</h2>
+      <div className="grid-container">
+        <h2 className="information">Consumer Information</h2>
 
-      <div className="textfield">
-        <div className="textfield-search">
-          <InputBase
-            placeholder="Search for building/ solar PV/Grid"
-            inputProps={{ "aria-label": "Search for building/ solar PV/Grid" }}
-          />
-          <IconButton className="search-icon" type="submit" aria-label="search">
-            <SearchIcon />
-          </IconButton>
+        <div className="textfield">
+          <div className="textfield-search">
+            <InputBase
+              placeholder="Search for building/ solar PV/Grid"
+              inputProps={{
+                "aria-label": "Search for building/ solar PV/Grid",
+              }}
+            />
+            <IconButton
+              className="search-icon"
+              type="submit"
+              aria-label="search"
+            >
+              <SearchIcon />
+            </IconButton>
+          </div>
         </div>
-      </div>
 
-      <div>
-        <Grid container spacing={1}>
-          <Grid container item xs={12} spacing={3}>
-            <FormBuyRow />
+        <div>
+          <Grid container spacing={1}>
+            <Grid container item xs={12} spacing={3}>
+              <FormBuyRow />
+            </Grid>
           </Grid>
-        </Grid>
+        </div>
       </div>
     </div>
   );

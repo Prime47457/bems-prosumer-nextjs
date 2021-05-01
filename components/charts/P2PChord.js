@@ -59,7 +59,7 @@ export default function P2PChord() {
       .toLocaleString("en-CA", { timeZone: "Asia/Bangkok" })
       .substring(0, 10);
     // dont forget to change
-    const dateHour = new Date().setHours(13, 0, 0, 0);
+    const dateHour = new Date().setMinutes(0, 0, 0);
     db.ref("Market/admin")
       .child(date)
       .child(dateHour)
