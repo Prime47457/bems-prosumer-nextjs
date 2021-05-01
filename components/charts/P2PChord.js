@@ -33,23 +33,7 @@ const chartConfigs = {
   width: "100%", // Width of the chart
   height: "500", // Height of the chart
   dataFormat: "json", // Data type
-  dataSource: {
-    // Chart Configuration
-    // chart: {
-    //   caption: "P2P Electricity Market Trade",
-    //   subcaption: "Latest hour",
-    //   theme: "fusion",
-    //   numbersuffix: " baht",
-    //   nodewidth: 0,
-    //   nodelinkpadding: 3,
-    //   linkcolor: "blend",
-    //   linkcurvature: 0.6,
-    //   linkalpha: 40,
-    //   nodeSpacing: 15,
-    // },
-    // nodes: [],
-    // links: [],
-  },
+  dataSource: {},
 };
 
 export default function P2PChord() {

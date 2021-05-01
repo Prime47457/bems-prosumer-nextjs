@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
 
-const Barranking = () => {
+const BarrankingQuan = () => {
   const [chart, setChart] = useState({
     series: [
       {
-        name: "Price of this round (baht)",
-        data: [3, 4],
+        name: "Quantity of this round (kW)",
+        data: [],
       },
     ],
     responsive: [
@@ -21,7 +21,7 @@ const Barranking = () => {
     ],
     options: {
       chart: {
-        id: "barranking",
+        id: "barrankingquan",
         height: 400,
         width: "100%",
         type: "bar",
@@ -35,7 +35,7 @@ const Barranking = () => {
         },
       },
       title: {
-        text: "Price comparison (Latest Round)",
+        text: "Quantity comaprison (Latest Round)",
       },
       dataLabels: {
         enabled: true,
@@ -44,15 +44,15 @@ const Barranking = () => {
       noData: { text: "Loading..." },
       colors: [
         function ({ value, seriesIndex, w }) {
-          if (value > 4.12) {
+          if (value > 4) {
             return "#ba0e02";
           } else {
-            return "#e1bd50";
+            return "#243aa1";
           }
         },
       ],
       xaxis: {
-        categories: ["Buying Price", "Selling Price"],
+        categories: ["Quantity bought", "Quantity Sold"],
       },
     },
   });
@@ -71,4 +71,4 @@ const Barranking = () => {
   );
 };
 
-export default Barranking;
+export default BarrankingQuan;

@@ -122,7 +122,7 @@ export function updateSellPriceQuan(uid) {
     });
 }
 
-export function updateBarRankingPrice(uid) {
+export function updateBarRanking(uid) {
   const date = new Date()
     .toLocaleString("en-CA", { timeZone: "Asia/Bangkok" })
     .substring(0, 10);
@@ -145,9 +145,6 @@ export function updateBarRankingPrice(uid) {
               },
               { sum: 0, quantity: 0 }
             );
-            const avgSellPrice = Number(
-              Math.round(sellPrice.sum / sellPrice.quantity + "e2") + "e-2"
-            );
             const buyPrice = response.bought.reduce(
               (acc, cur) => {
                 acc.sum += cur.price * cur.quantity;
@@ -156,13 +153,26 @@ export function updateBarRankingPrice(uid) {
               },
               { sum: 0, quantity: 0 }
             );
+            const avgSellPrice = Number(
+              Math.round(sellPrice.sum / sellPrice.quantity + "e2") + "e-2"
+            );
             const avgBuyPrice = Number(
               Math.round(buyPrice.sum / buyPrice.quantity + "e2") + "e-2"
             );
-            return [avgBuyPrice, avgSellPrice];
+            const buyQuan = buyPrice.quantity;
+            const sellQuan = sellPrice.quantity;
+            return {
+              price: [avgBuyPrice, avgSellPrice],
+              quantity: [buyQuan, sellQuan],
+            };
           })
           .flat();
-        ApexCharts.exec("barranking", "updateSeries", [{ data: priceData }]);
+        ApexCharts.exec("barranking", "updateSeries", [
+          { data: priceData[0].price },
+        ]);
+        ApexCharts.exec("barrankingquan", "updateSeries", [
+          { data: priceData[0].quantity },
+        ]);
       } else {
         console.log("No data found");
       }
