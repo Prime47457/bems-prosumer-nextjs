@@ -4,19 +4,6 @@ import Chart from "react-apexcharts";
 const AggDonut = () => {
   const [chart, setChart] = useState({
     series: [],
-    responsive: [
-      {
-        breakpoint: 1000,
-        options: {
-          chart: {
-            width: 200,
-          },
-          legend: {
-            position: "bottom",
-          },
-        },
-      },
-    ],
     options: {
       labels: [],
       chart: {
@@ -24,6 +11,19 @@ const AggDonut = () => {
         width: 380,
         type: "donut",
       },
+      responsive: [
+        {
+          breakpoint: 600,
+          options: {
+            chart: {
+              width: "100%",
+            },
+            legend: {
+              show: false,
+            },
+          },
+        },
+      ],
       plotOptions: {
         pie: {
           donut: {

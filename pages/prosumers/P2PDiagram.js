@@ -1,27 +1,13 @@
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
-import { Grid, Paper, TextField, MenuItem } from "@material-ui/core";
+import { Grid, Paper } from "@material-ui/core";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/database";
 import dynamic from "next/dynamic";
-
-const firebaseConfig = {
-  apiKey: process.env.NEXT_APP_FIREBASE_KEY,
-  authDomain: process.env.NEXT_APP_FIREBASE_DOMAIN,
-  databaseURL: process.env.NEXT_APP_FIREBASE_REALTIMEDBURL,
-  projectId: process.env.NEXT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_APP_FIREBASE_SENDER_ID,
-  appId: "1:1083389397572:web:1470b861f0c2209e9b8a11",
-  measurementId: "G-JQXCS7B1JK",
-};
-
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+import { useAuth } from "../../assets/auth";
 
 const db = firebase.database();
 
@@ -72,6 +58,7 @@ export function getMarketStatus() {
 }
 
 export default function P2PDiagram() {
+  const auth = useAuth();
   const [clearMeth, setClearMeth] = useState("");
   const [kValue, setKValue] = useState(0);
   const [penalty, seetPenalty] = useState(0.15);
@@ -87,7 +74,7 @@ export default function P2PDiagram() {
       setPercentClear(res.percentClear);
       setPercentSold(res.percentSold);
     });
-  });
+  }, []);
 
   return (
     <div className="grid-page">

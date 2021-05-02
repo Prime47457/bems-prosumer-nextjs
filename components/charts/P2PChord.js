@@ -112,6 +112,6 @@ export default function P2PChord() {
           console.log("No data found");
         }
       });
-  });
+  }, []);
   return <ReactFC {...chart} />;
 }

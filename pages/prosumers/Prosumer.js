@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
-import { Button, Grid, Paper, TextField, MenuItem } from "@material-ui/core";
+import { Grid, Paper } from "@material-ui/core";
 import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import Navbar from "../../components/Navbar";
@@ -121,7 +121,9 @@ export default function Prosumer() {
           updateChart(url, floor).then((res) => {
             setName(data.name + " " + data.surname);
             setBuilding(data.building + " Floor " + data.floor);
-            setLoad(Number(Math.round(res.total + "e2") + "e-2"));
+            if (res.total) {
+              setLoad(Number(Math.round(res.total + "e2") + "e-2"));
+            }
           });
         });
       if (

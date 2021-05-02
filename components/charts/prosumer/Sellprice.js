@@ -76,13 +76,6 @@ const Sellprice = () => {
           },
         },
       },
-      // yaxis: [
-      //   {
-      //     title: {
-      //       text: "Price(Baht)",
-      //     },
-      //   },
-      // ],
     },
   });
 

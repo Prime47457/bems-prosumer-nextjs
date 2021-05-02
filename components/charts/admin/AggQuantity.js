@@ -71,13 +71,6 @@ const AggQuantity = () => {
           },
         },
       },
-      // yaxis: [
-      //   {
-      //     title: {
-      //       text: "Price(Baht)",
-      //     },
-      //   },
-      // ],
     },
   });
 

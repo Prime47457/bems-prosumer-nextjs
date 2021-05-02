@@ -9,16 +9,6 @@ const Barranking = () => {
         data: [3, 4],
       },
     ],
-    responsive: [
-      {
-        breakpoint: 1000,
-        options: {
-          legend: {
-            position: "bottom",
-          },
-        },
-      },
-    ],
     options: {
       chart: {
         id: "barranking",
@@ -29,6 +19,18 @@ const Barranking = () => {
           show: false,
         },
       },
+      responsive: [
+        {
+          breakpoint: 1000,
+          options: {
+            plotOptions: {
+              bar: {
+                horizontal: false,
+              },
+            },
+          },
+        },
+      ],
       plotOptions: {
         bar: {
           horizontal: true,
