@@ -9,6 +9,7 @@ const AggDonut = () => {
       chart: {
         id: "aggdonut",
         width: 380,
+        height: 380,
         type: "donut",
       },
       responsive: [
@@ -17,6 +18,7 @@ const AggDonut = () => {
           options: {
             chart: {
               width: "100%",
+              height: 200,
             },
             legend: {
               show: false,

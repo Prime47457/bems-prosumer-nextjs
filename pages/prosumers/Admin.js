@@ -136,28 +136,6 @@ export default function AdminProsumer() {
                 </div>
               </Paper>
             </Grid>
-            {/* <Grid item>
-              <div className="sale-information">
-                <div className="sale">
-                  <p>Purchase Load</p>
-                  <h4>100</h4>
-                </div>
-
-                <hr className="border-color" />
-
-                <div className="sale">
-                  <p>Number of Producer</p>
-                  <h4>8</h4>
-                </div>
-
-                <hr className="border-color" />
-
-                <div className="sale">
-                  <p>Number of Customer</p>
-                  <h4>1.5 MW</h4>
-                </div>
-              </div>
-            </Grid> */}
             <div
               style={{
                 marginTop: "40px",

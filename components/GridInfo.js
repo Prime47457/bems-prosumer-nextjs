@@ -52,7 +52,7 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-export default function GridInfo() {
+export default function GridInfo(prop) {
   const [items, setItems] = useState([]);
   const [openBuy, setOpenBuy] = useState(false);
   const [openSell, setOpenSell] = useState(false);
@@ -191,6 +191,7 @@ export default function GridInfo() {
           });
         }
         setItems(userData);
+        prop.backdrop(false);
       });
   }, []);
 
