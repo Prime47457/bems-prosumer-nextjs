@@ -42,7 +42,6 @@ export default function Grid() {
     setBackDrop(true);
   }, []);
 
-  console.log(backDrop);
   return (
     <div className="grid-page">
       <Backdrop className={classes.backdrop} open={backDrop}>

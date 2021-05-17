@@ -12,6 +12,10 @@ import {
   updateAdminDonutChart,
 } from "../../data/current/updateChart";
 import { updateAggPriceQuan } from "../../data/current/updatePriceQuan";
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+import { useAuth } from "../../assets/auth";
 
 const AggElectricity = dynamic(
   () => {
@@ -41,9 +45,12 @@ const AggDonut = dynamic(
   { ssr: false }
 );
 
+const db = firebase.database();
+
 export default function AdminProsumer() {
   const [selectedLoadDate, setSelectedLoadDate] = useState(new Date());
   const [selectedPriceDate, setSelectedPriceDate] = useState(new Date());
+  const [quantity, setQuantity] = useState(0);
 
   const urlArray = [
     "https://www.bems.chula.ac.th/web/cham5-api/api/v1/building/3/building_usage/day/peak",
@@ -106,6 +113,29 @@ export default function AdminProsumer() {
 
   useEffect(() => {
     updateAdminDonutChart(urlArray);
+    const date = new Date()
+      .toLocaleString("en-CA", { timeZone: "Asia/Bangkok" })
+      .substring(0, 10);
+    db.ref("Market/admin")
+      .child(date)
+      .get()
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const totalQuantities = Object.entries(snapshot.val()).map(
+            ([key, response]) => {
+              const quantity = response.results.reduce((acc, cur) => {
+                return acc + cur.quantity;
+              }, 0);
+              return { x: parseInt(key), y: quantity };
+            }
+          );
+
+          const totalQuan = totalQuantities.pop();
+          setQuantity(totalQuan.y);
+        } else {
+          console.log("no data found");
+        }
+      });
   }, []);
 
   return (
@@ -124,7 +154,7 @@ export default function AdminProsumer() {
                 <div className="sale-information">
                   <div className="sale">
                     <p>Total Quantity Traded</p>
-                    <h4>24</h4>
+                    <h4>{quantity}</h4>
                   </div>
 
                   <hr className="border-color" />
