@@ -44,7 +44,7 @@ export function getMarketStatus() {
         return {
           date: date,
           clearMeth: "",
-          kValue: 12,
+          kValue: 13,
           percentBought: 40,
           percentClear: 20,
           percentSold: 50,
