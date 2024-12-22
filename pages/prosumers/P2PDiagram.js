@@ -44,10 +44,10 @@ export function getMarketStatus() {
         return {
           date: date,
           clearMeth: "",
-          kValue: 0,
-          percentBought: 0,
-          percentClear: 0,
-          percentSold: 0,
+          kValue: 12,
+          percentBought: 40,
+          percentClear: 20,
+          percentSold: 50,
         };
       }
     })
